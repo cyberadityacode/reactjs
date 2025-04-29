@@ -49,3 +49,7 @@ You load a script from cdn.com.
 
 CORS checks:
 > "Does cdn.com allow my-site.com to use its script?"
+
+### A React Element is a simple object that describes what you want to see on the screen.
+
+> Think of it as a blueprint for a part of the UI (like a button, heading, or div). React uses this blueprint to create and update what you see in the browser.
