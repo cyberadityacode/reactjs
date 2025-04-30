@@ -1,0 +1,29 @@
+{
+  "version": 3,
+  "file": "script.js",
+  "names": [
+    "username",
+    "sampleNameFunc",
+    "showValue",
+    "h2",
+    "React",
+    "createElement",
+    "toString",
+    "console",
+    "log",
+    "root",
+    "ReactDOM",
+    "createRoot",
+    "document",
+    "querySelector",
+    "render"
+  ],
+  "sources": [
+    "../script.js"
+  ],
+  "sourcesContent": [
+    "const username = 'cyberaditya'\r\n\r\nconst sampleNameFunc = ()=>{\r\n   return username + ' dc'\r\n}\r\n\r\nconst showValue = false\r\n\r\nconst h2 = <h2>Hello JSX <b>{username}</b> <b>{sampleNameFunc()}</b> {showValue.toString()} </h2>\r\n\r\n\r\nconsole.log(h2);\r\nconst root = ReactDOM.createRoot(document.querySelector('#root'))\r\nroot.render(h2)"
+  ],
+  "mappings": ";;AAAA,IAAMA,QAAQ,GAAG,aAAa;AAE9B,IAAMC,cAAc,GAAG,SAAjBA,cAAcA,CAAA,EAAO;EACxB,OAAOD,QAAQ,GAAG,KAAK;AAC1B,CAAC;AAED,IAAME,SAAS,GAAG,KAAK;AAEvB,IAAMC,EAAE,gBAAGC,KAAA,CAAAC,aAAA,aAAI,YAAU,eAAAD,KAAA,CAAAC,aAAA,YAAIL,QAAY,CAAC,KAAC,eAAAI,KAAA,CAAAC,aAAA,YAAIJ,cAAc,CAAC,CAAK,CAAC,KAAC,EAACC,SAAS,CAACI,QAAQ,CAAC,CAAC,EAAC,GAAK,CAAC;AAGjGC,OAAO,CAACC,GAAG,CAACL,EAAE,CAAC;AACf,IAAMM,IAAI,GAAGC,QAAQ,CAACC,UAAU,CAACC,QAAQ,CAACC,aAAa,CAAC,OAAO,CAAC,CAAC;AACjEJ,IAAI,CAACK,MAAM,CAACX,EAAE,CAAC",
+  "ignoreList": []
+}
