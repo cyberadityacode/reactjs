@@ -9,9 +9,9 @@ function Card(props) {
   // return  [1,2,3].map((id) =>(
 
   // destructuring es6 feature
-  const { key, title, image, brandName, productPrice } = props;
+  const {title, image, brandName, productPrice } = props;
   return (
-    <div key={key} className="card">
+    <div className="card">
       <img src={image} alt={brandName} />
       <div className="card-content">
         <h3>{title}</h3>
@@ -21,7 +21,7 @@ function Card(props) {
             Price ₹{" "}
             {Math.floor(
               productPrice * currentDollorToRupeesRate
-            ).toLocaleString()}
+            ).toLocaleString("en-IN")}
           </b>
         </p>
       </div>
@@ -42,8 +42,7 @@ fetch("https://dummyjson.com/products")
   .then((res) => res.json())
   .then((data) => {
     console.log(data);
-    const container2 = data.products.map((product) => {
-      // console.log(product);
+    /* const container2 = data.products.map((product) => {
       return Card({
         key: product.id,
         title: product.title,
@@ -51,8 +50,18 @@ fetch("https://dummyjson.com/products")
         brandName: product.brand,
         productPrice: product.price,
       });
-    });
+    }); */
+    const container2 = data.products.map((product) => (
+      <Card
+        key={product.id}
+        title={product.title}
+        image={product.thumbnail}
+        brandName={product.brand}
+        productPrice={product.price}
+      />
+    ));
     console.log(container2);
+
     root.render(<div className="container">{container2}</div>);
   });
 
