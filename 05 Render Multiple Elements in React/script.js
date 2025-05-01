@@ -1,11 +1,15 @@
 import { createRoot } from "react-dom/client";
 import "./style.css";
+import { Children } from "react";
 // import {products} from "products.json"
 // const h1 = <h1>Hello Root Element 1</h1>
 const currentDollorToRupeesRate = 82;
 // const cards =
-function Card(key, title, image, brandName, productPrice) {
+function Card(props) {
   // return  [1,2,3].map((id) =>(
+
+  // destructuring es6 feature
+  const { key, title, image, brandName, productPrice } = props;
   return (
     <div key={key} className="card">
       <img src={image} alt={brandName} />
@@ -40,14 +44,25 @@ fetch("https://dummyjson.com/products")
     console.log(data);
     const container2 = data.products.map((product) => {
       // console.log(product);
-      return Card(
-        product.id,
-        product.title,
-        product.thumbnail,
-        product.brand,
-        product.price
-      );
+      return Card({
+        key: product.id,
+        title: product.title,
+        image: product.thumbnail,
+        brandName: product.brand,
+        productPrice: product.price,
+      });
     });
     console.log(container2);
     root.render(<div className="container">{container2}</div>);
   });
+
+
+
+// render needs react element as its argument
+ /* 
+  Since, React Element must have 4 properties-
+  $$typeof : Symbol.for('react-element')
+  type: 'h1',
+  ref: null,
+  props: {}
+ */
