@@ -1,0 +1,7 @@
+@import "tailwindcss";
+
+@layer components{
+    .custom-btn{
+        @apply text-3xl bg-green-500 text-white p-3 m-3 hover:bg-green-700 active:scale-105 rounded font-bold;
+    }
+}
