@@ -1,0 +1,19 @@
+{
+  "name": "11-react-fragments",
+  "version": "1.0.0",
+  "description": "**React Fragments** are a feature in React that allow you to group multiple elements without adding an extra node to the DOM.",
+  "scripts": {
+    "start": "parcel index.html",
+    "build": "build index.html",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "aditya dubey",
+  "license": "ISC",
+  "dependencies": {
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  },
+  "devDependencies": {
+    "parcel": "^2.14.4"
+  }
+}
