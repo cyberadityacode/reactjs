@@ -175,3 +175,7 @@ If message is empty, this renders nothing at all — as if the line doesn't exis
 This is a very clean way to conditionally render elements without writing if statements or ternary operators.
 
 
+| Concept   | Purpose                                                                 | Used In                              |
+| --------- | ----------------------------------------------------------------------- | ------------------------------------ |
+| **State** | Stores data that changes                                                | Both class and functional components |
+| **Hook**  | Adds features to functional components (like state, lifecycle, context) | Functional components only           |
