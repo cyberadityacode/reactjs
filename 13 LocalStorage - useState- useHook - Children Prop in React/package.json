@@ -1,0 +1,18 @@
+{
+  "name": "13-children-prop-in-react",
+  "version": "1.0.0",
+  "description": "```jsx\r <Component>\r hi\r </Component>\r ```",
+  "scripts": {
+    "start": "parcel index.html",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "aditya dubey",
+  "license": "ISC",
+  "dependencies": {
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  },
+  "devDependencies": {
+    "parcel": "^2.14.4"
+  }
+}
