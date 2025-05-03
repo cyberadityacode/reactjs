@@ -20,3 +20,8 @@ You can access the children prop inside a component by using destructuring. chil
 2. useState to update the value of the component dynamically.
 3. useHook to execute only when countValue changes — not on every render. (This helped to prevent NaN in this case)
 4. Used Children Prop in Button Component.
+5. Conditional Rendering use case.
+6. Used Array of Range Object to traverse through array obj elements and output result on the basis of falling range. ( Eg. counter click value > 30 -> God Level Display)
+7. Its utility array is wide - Leveling systems ,Grading systems, Feedback systems 🚀
+
+

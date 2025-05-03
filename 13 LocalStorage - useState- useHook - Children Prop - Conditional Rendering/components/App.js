@@ -11,8 +11,13 @@ export default function App({localStorageValue}) {
   };
   return (
     <div>
-      <Counter countAnyValue={countValue} />
+      {/* <Counter countAnyValue={countValue} />
       <Button clickToIncrease={clickHandler}>Button Name as Children Prop</Button>
+ */}
+    {/* Conditional Rendering i.e display component only if condition is true*/}
+    {/* { true? <Counter countAnyValue={countValue} />: <Button clickToIncrease={clickHandler}>Button Name as Children Prop</Button>} */}
+    <Counter countAnyValue={countValue} />
+    <Button clickToIncrease={clickHandler}>Button Name as Children Prop</Button>
     </div>
   );
 }
