@@ -1,0 +1,34 @@
+{
+    "users": [
+        {
+            "username" : "aditya",
+            "age": 31,
+            "email": "adityadubey793@gmail.com"
+
+        },{
+            "username" : "dubey",
+            "age": 32,
+            "email": "2adityadubey793@gmail.com"
+
+        },
+        {
+            "username" : "adad",
+            "age": 23,
+            "email": "ads@gmail.com"
+
+        },
+        {
+            "username" : "weqd",
+            "age": 5,
+            "email": "adsdfy793@gmail.com"
+
+        },
+        {
+            "username" : "hrthe",
+            "age": 88,
+            "email": "afs@gmail.com"
+
+        }
+    ]
+
+}
