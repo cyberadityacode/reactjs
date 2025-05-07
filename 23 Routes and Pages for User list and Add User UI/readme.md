@@ -1,6 +1,3 @@
-
----
-
 ## **Simple CRUD Application with React and React Router**
 
 **Using JSON Server, Parcel Bundler, and Tailwind CSS**
