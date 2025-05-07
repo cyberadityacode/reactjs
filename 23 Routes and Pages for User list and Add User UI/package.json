@@ -1,0 +1,22 @@
+{
+  "name": "22-json-server",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "parcel index.html --open",
+    "build": "parcel build index.html",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@tailwindcss/cli": "^4.1.5",
+    "json-server": "^1.0.0-beta.3",
+    "parcel": "^2.14.4",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-router": "^7.5.3",
+    "react-router-dom": "^7.5.3",
+    "tailwindcss": "^4.1.5"
+  }
+}
