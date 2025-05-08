@@ -1,0 +1,20 @@
+{
+  "name": "24-simple-validation-in-react",
+  "version": "1.0.0",
+ 
+  "scripts": {
+    "start": "parcel index.html",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "aditya dubey",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@tailwindcss/cli": "^4.1.5",
+    "parcel": "^2.14.4",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-router": "^7.5.3",
+    "tailwindcss": "^4.1.5"
+  }
+}
