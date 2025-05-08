@@ -3,6 +3,10 @@ import { userAuthentication } from "../src/lib/users";
 export default async function ServerAction(prevState, formData) {
   const userName = formData.get('username')
   const password = formData.get('password')
+  
+  if(!userName){
+    return "Enter Username and Password Before login"
+  }
 
   if(!userAuthentication(userName,password)){
     await new Promise((resolve) =>{
