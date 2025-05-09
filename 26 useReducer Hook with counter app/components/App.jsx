@@ -1,25 +1,53 @@
-import React, { useReducer } from "react";
+import React, { act, useReducer } from "react";
 
 export default function App() {
+
+  const initialState = {
+    count :0,
+    inc:2,
+    dec:2,
+  }
   const reducer = (state, action) => {
-   
-    if (action.type === "INCREMENT") {
+   console.log(state, action);
+   /*  if (action.type === "INCREMENT") {
       return state + 1;
     } else if (action.type === "DECREMENT") {
       return state - 1;
     }else{
         return 0
+    } */
+// spread operator in this case ensure the remaining attributes of the object remains intact, only the count key get altered.
+    switch(action.type){
+      case "INCREMENT":
+        return {
+          ...state,
+          count: state.count +1};
+        
+      case "DECREMENT":
+        return {...state, 
+          count: state.count -1};
+      
+      case "RESET":
+        return {...state, 
+          count: 0};
+      
+      default:
+        return state;
+      
     }
+      
   };
 
-  const [count, dispatch] = useReducer(reducer, 0);
+  // const [count, dispatch] = useReducer(reducer, 0);
+  const [state, dispatch] = useReducer(reducer, initialState);
 
-  console.log(count);
+  // console.log(state.count);
+  
   return (
     <div className="flex flex-col">
       <h1 className="text-center text-3xl">useReducer Hook with Counter App</h1>
       <div className=" flex flex-col h-lvh justify-center items-center [&>button]:p-4 [&>button]:my-2">
-        <h1 className="text-4xl font-bold">{count}</h1>
+        <h1 className="text-4xl font-bold">{state.count}</h1>
         <button
           onClick={() => dispatch({ type: "INCREMENT" })}
           className="w-35 border bg-green-500 font-bold text-white rounded hover:bg-green-800 active:scale-105"
