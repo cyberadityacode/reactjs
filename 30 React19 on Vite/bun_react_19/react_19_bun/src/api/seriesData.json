@@ -28,6 +28,36 @@
     "cast": ["Henry Cavill", "Anya Chalotra", "Freya Allan"],
     "genre": ["Action", "Adventure", "Drama"],
     "watch_url": "https://www.netflix.com/title/80189685"
+  },
+  {
+    "name": "The Witcher",
+    "id": "the-witcher2",
+    "img_url": "https://m.media-amazon.com/images/M/MV5BMTQ5MDU5MTktMDZkMy00NDU1LWIxM2UtODg5OGFiNmRhNDBjXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
+    "rating": "8.2",
+    "description": "Geralt of Rivia, a mutated monster-hunter for hire, journeys toward his destiny in a turbulent world.",
+    "cast": ["Henry Cavill", "Anya Chalotra", "Freya Allan"],
+    "genre": ["Action", "Adventure", "Drama"],
+    "watch_url": "https://www.netflix.com/title/80189685"
+  },
+  {
+    "name": "The Witcher",
+    "id": "the-witcher3",
+    "img_url": "https://m.media-amazon.com/images/M/MV5BMTQ5MDU5MTktMDZkMy00NDU1LWIxM2UtODg5OGFiNmRhNDBjXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
+    "rating": "8.2",
+    "description": "Geralt of Rivia, a mutated monster-hunter for hire, journeys toward his destiny in a turbulent world.",
+    "cast": ["Henry Cavill", "Anya Chalotra", "Freya Allan"],
+    "genre": ["Action", "Adventure", "Drama"],
+    "watch_url": "https://www.netflix.com/title/80189685"
+  },
+  {
+    "name": "The Witcher",
+    "id": "the-witcher4",
+    "img_url": "https://m.media-amazon.com/images/M/MV5BMTQ5MDU5MTktMDZkMy00NDU1LWIxM2UtODg5OGFiNmRhNDBjXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
+    "rating": "8.2",
+    "description": "Geralt of Rivia, a mutated monster-hunter for hire, journeys toward his destiny in a turbulent world.",
+    "cast": ["Henry Cavill", "Anya Chalotra", "Freya Allan"],
+    "genre": ["Action", "Adventure", "Drama"],
+    "watch_url": "https://www.netflix.com/title/80189685"
   }
  
 ]

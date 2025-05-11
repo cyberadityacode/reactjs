@@ -1,16 +1,15 @@
 import React, { version } from "react";
-import {NetflixSeries, Footer} from "./components/NetfilxSeries";
-
+import { NetflixSeries, Footer } from "./components/NetfilxSeries";
+import './components/Netflix.css'
 export const App = () => {
   return (
-    // <h1>Hello, Aditya {version}</h1>
-
-    // React.createElement('h1', null, 'Hello, Aditya')
     <>
-      <NetflixSeries />
-      {/* <NetflixSeries /> */}
+      <section className="container">
+        <h1 className="card-heading">List of Best Netflix Series</h1>
+        <NetflixSeries />
+      </section>
+
       <Footer />
     </>
   );
 };
-

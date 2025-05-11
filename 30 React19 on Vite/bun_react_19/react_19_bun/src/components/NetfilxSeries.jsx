@@ -23,9 +23,11 @@ export const NetflixSeries = () => {
   console.log(seriesData);
   return (
     <>
-      {seriesData.map((curEl) => (
-        <SeriesCard key={curEl.id}  data = {curEl} />
-      ))}
+      <ul className="grid grid-three-cols">
+        {seriesData.map((curEl) => (
+          <SeriesCard key={curEl.id} data={curEl} />
+        ))}
+      </ul>
     </>
   );
 };
