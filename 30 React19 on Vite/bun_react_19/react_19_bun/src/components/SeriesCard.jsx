@@ -6,9 +6,13 @@ export const SeriesCard = (props) => {
     padding: "1.2rem 2.4rem",
     border: "none",
     fontSize: "1.6rem",
-    backgroundColor: "var(--btn-hover-bg-color)",
+    backgroundColor: `${rating>=8.5 ? "#7dcea0":"#f7dc6f"}`,
     color: "var(--bg-color)",
+    fontWeight: "bold",
+    cursor: "pointer"
   };
+
+  const ratingClass = rating>=8.5 ? "super_hit":"average"
 
   return (
     <li className="card">
@@ -16,12 +20,10 @@ export const SeriesCard = (props) => {
         <img src={img_url} width="200px" height="200px" alt="" />
       </div>
       <div className="card-content">
-        <h2 style={{ textAlign: "center" }}>Name: {name} </h2>
-        <h3 style={{fontSize:'1.5rem', fontWeight:'bold'}}>Rating: {rating}</h3>
+        <h2 >Name: {name} </h2>
+        <h3 >Rating: <span className={`rating ${ratingClass}`}>{rating}</span> </h3>
         <p>Summary: {description}</p>
         <p>Genre {genre.join(", ")}</p>
-        {/* <button>{ age>=18 ? "Watch Now": "Don't Watch"} </button> */}
-        {/* <button>{ canWatch} </button> */}
         <a target="_blank" href={watch_url}>
           <button style={buttonStyle}>Watch Now </button>
         </a>
