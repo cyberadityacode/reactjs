@@ -1,3 +1,6 @@
+import styles from './Netflix.module.css';
+
+
 export const SeriesCard = (props) => {
   console.log("Check Props- ", props);
   // destructuring
@@ -12,16 +15,16 @@ export const SeriesCard = (props) => {
     cursor: "pointer"
   };
 
-  const ratingClass = rating>=8.5 ? "super_hit":"average"
+  const ratingClass = rating>=8.5 ? styles.super_hit : styles.average;
 
   return (
-    <li className="card">
+    <li className={styles.card}>
       <div style={{ display: "flex", justifyContent: "center" }}>
         <img src={img_url} width="200px" height="200px" alt="" />
       </div>
-      <div className="card-content">
+      <div className={styles["card-content"]}>
         <h2 >Name: {name} </h2>
-        <h3 >Rating: <span className={`rating ${ratingClass}`}>{rating}</span> </h3>
+        <h3 >Rating: <span className={`${styles.rating} ${ratingClass}`}>{rating}</span> </h3>
         <p>Summary: {description}</p>
         <p>Genre {genre.join(", ")}</p>
         <a target="_blank" href={watch_url}>

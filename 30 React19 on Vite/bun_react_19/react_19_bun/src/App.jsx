@@ -1,6 +1,8 @@
 import React, { version } from "react";
 import { NetflixSeries, Footer } from "./components/NetfilxSeries";
-import './components/Netflix.css'
+// import './components/Netflix.css'
+import './components/Netflix.module.css'
+
 export const App = () => {
   return (
     <>
