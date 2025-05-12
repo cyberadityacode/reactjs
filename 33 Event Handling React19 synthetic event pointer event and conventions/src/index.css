@@ -1,0 +1,7 @@
+@import "tailwindcss";
+
+@layer components{
+  .aditya-class{
+    @apply text-7xl  text-gray-800 ;
+  }
+}
