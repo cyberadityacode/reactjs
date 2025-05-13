@@ -1,4 +1,5 @@
 import { useState } from "react";
+import StateUsers from "./StateUsers";
 
 export default function State() {
     console.log('Parent State Component Rendered');
@@ -37,6 +38,8 @@ export default function State() {
         </div>
     </div>
     <ChildComponent countValue = {count} />
+
+      <StateUsers />
     </>
   )
 }
@@ -52,6 +55,9 @@ function ChildComponent({countValue}){
 export function SiblingComponent(){
     console.log("Sibling Component Renders");
     return (
+        <>
         <div>Sibling Component </div>
+      
+        </>
     )
 }

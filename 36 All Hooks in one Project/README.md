@@ -52,3 +52,9 @@ By convention, hook function names should start with the word "use". This tells 
 
 Whenever state altered in the parent component, child components also re-renders along with parent component. 
 But, Sibling component is unaffected by the re-renders via state updates of the parent component.
+
+Q. Why the stae value does not reset to its initial value on the re-renders?
+- Ans: The useState hook is smart enough to only use the initial value the very first time it renders the component.
+
+- You can pass entire array comprising object to the initial value of useState and thereafter traverse via map declarative function to fetch elements of the object.
+
