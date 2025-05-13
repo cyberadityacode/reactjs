@@ -1,0 +1,10 @@
+@import "tailwindcss";
+
+@layer utilities{
+    .main-class{
+        @apply flex flex-col h-screen justify-center;
+    }
+    button{
+        @apply p-4 text-2xl border m-3 text-white font-semibold rounded active:scale-105 ;
+    }
+}
