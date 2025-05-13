@@ -45,3 +45,10 @@ By convention, hook function names should start with the word "use". This tells 
     - useLawetEffect - like useEffect but fires synchronously after DOM updates.
 
 7. Custom Hooks - user-defined functions that encapsulate reusable logic
+
+
+
+## useState 
+
+Whenever state altered in the parent component, child components also re-renders along with parent component. 
+But, Sibling component is unaffected by the re-renders via state updates of the parent component.

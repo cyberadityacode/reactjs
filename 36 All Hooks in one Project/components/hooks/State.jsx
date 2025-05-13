@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 export default function State() {
-
+    console.log('Parent State Component Rendered');
     const [count, setCount] = useState(0)
 
     const handleClickIncrement = (event)=>{
@@ -24,6 +24,7 @@ export default function State() {
     }
 
   return (
+    <>
     <div>
         <h1>State Hook - useState</h1>
         <div className="main-class" >
@@ -35,5 +36,22 @@ export default function State() {
             </div>
         </div>
     </div>
+    <ChildComponent countValue = {count} />
+    </>
   )
+}
+
+function ChildComponent({countValue}){
+    console.log("Child Component Renders");
+    return (
+        <div>Child Component {countValue}</div>
+    )
+}
+
+
+export function SiblingComponent(){
+    console.log("Sibling Component Renders");
+    return (
+        <div>Sibling Component </div>
+    )
 }
