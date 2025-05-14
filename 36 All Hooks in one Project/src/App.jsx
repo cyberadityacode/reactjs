@@ -1,5 +1,6 @@
 import DerivedState from "../components/hooks/DerivedState";
 import State from "../components/hooks/State"
+import LiftStateUp from "../components/LiftStateUp";
 
 function App() {
 
@@ -11,6 +12,8 @@ function App() {
 
     <SiblingComponent />
     <DerivedState />
+
+    <LiftStateUp />
   </>
   )
 }
