@@ -1,0 +1,24 @@
+@import "tailwindcss";
+
+@layer components{
+    .toggle-switch{
+        @apply  w-30 h-10 flex 
+                justify-center items-center mx-auto mt-20
+                rounded-3xl relative p-5 shadow-2xl;
+    }
+    .switch{
+        @apply w-10 h-7 flex justify-center 
+        items-center text-white absolute 
+        left-5 border-2 rounded-2xl shadow-2xl
+        transform duration-700
+    }
+    .switch-state{
+        @apply my-0 mx-5;
+    }
+    .on {
+        @apply bg-green-800 transform translate-x-full;
+    }
+    .off {
+        @apply bg-gray-800 transform translate-x-0;
+    }
+}
