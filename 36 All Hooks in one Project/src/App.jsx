@@ -1,3 +1,4 @@
+import DerivedState from "../components/hooks/DerivedState";
 import State from "../components/hooks/State"
 
 function App() {
@@ -9,6 +10,7 @@ function App() {
     <State />
 
     <SiblingComponent />
+    <DerivedState />
   </>
   )
 }

@@ -58,3 +58,59 @@ Q. Why the stae value does not reset to its initial value on the re-renders?
 
 - You can pass entire array comprising object to the initial value of useState and thereafter traverse via map declarative function to fetch elements of the object.
 
+## Derived State
+
+In React, a "derived state" refers to a value or piece of state that is calculated from props or other state values, rather than being stored independently in the component's useState or this.state.
+
+It is derived (computed) from existing data, rather than being independently stored and updated.
+```jsx
+function Greeting({ name }) {
+  const uppercasedName = name.toUpperCase(); // derived from props
+
+  return <h1>Hello, {uppercasedName}!</h1>;
+}
+```
+
+Here, uppercasedName is derived state — it's computed from props.name and doesn't need to be stored with useState.
+
+## Lifting up the state
+
+In React, "lifting up the state" means moving state to the closest common ancestor component of two or more components that need to share or sync that state.
+
+When two sibling components need to access or update the same piece of data, it's best to:
+
+- Move (lift) the state to their common parent.
+
+- Pass it down to both children via props.
+
+- Let children send updates back to the parent using callback functions.
+
+```jsx
+
+function Parent() {
+  const [name, setName] = useState('');
+
+  return (
+    <>
+      <InputBox name={name} setName={setName} />
+      <Display name={name} />
+    </>
+  );
+}
+
+function InputBox({ name, setName }) {
+  return <input value={name} onChange={e => setName(e.target.value)} />;
+}
+
+function Display({ name }) {
+  return <p>Hello, {name}</p>;
+}
+```
+
+> Lift state up when:
+
+1. Multiple components need to access or modify the same state.
+
+2. You need to coordinate behavior between components.
+
+3. You want a single source of truth.
