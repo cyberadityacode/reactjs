@@ -1,0 +1,32 @@
+@import "tailwindcss";
+
+@layer components{
+    button{
+        @apply active:scale-105 
+    }
+    .btn-primary {
+        @apply bg-green-500 text-white text-lg font-bold ml-0 px-2 rounded
+    }
+    .btn-ordinary {
+        @apply bg-gray-500 text-white text-lg font-bold ml-0 px-2 rounded
+    }
+    .btn-danger {
+        @apply bg-red-700 text-white text-lg font-bold ml-0 px-2 rounded
+
+    }
+    .btn-group{
+        @apply flex gap-2 mt-2 mb-2
+    }
+    .list-task{
+        @apply flex flex-col 
+    }
+    .todo-item{
+        @apply ml-3 p-3 
+    }
+    .btn-edit-del{
+        @apply flex gap-2
+    }
+    li{
+        @apply flex justify-between items-center
+    }
+}
