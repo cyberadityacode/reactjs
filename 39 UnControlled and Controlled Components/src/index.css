@@ -1,0 +1,29 @@
+.parent-form{
+    display: flex;
+    flex-direction: column;
+    border: 1px solid;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+form input{
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+    /* padding: 20px; */
+}
+
+h1{
+    text-align: center;
+}
+
+button{
+    margin: 10px;
+
+}
