@@ -1,0 +1,36 @@
+@import "tailwindcss";
+
+@layer components{
+    div{
+        @apply text-balance text-center
+    }
+    .btn-controls{
+        @apply flex flex-row 
+    }
+    button{
+        @apply p-2 m-3 border active:scale-105 shadow-2xl 
+    }
+    input{
+        @apply border rounded m-2
+    }
+
+    .parent-div{
+        @apply flex flex-col w-full p-3 m-3 justify-center items-center
+    }
+    .heading{
+        @apply text-3xl
+    }
+    .counter{
+        @apply mt-3 mb-3 text-3xl font-extrabold border-2 p-3 bg-pink-300
+    }
+
+    .btn-increase{
+        @apply bg-green-700 text-white font-semibold rounded disabled:pointer-events-none disabled:opacity-50 disabled:cursor-none;
+    }
+    .btn-decrease{
+        @apply bg-red-700 text-white font-semibold rounded disabled:pointer-events-none disabled:opacity-50 disabled:cursor-none;
+    }
+    .btn-reset{
+        @apply bg-gray-700 text-white font-semibold rounded
+    }
+}
