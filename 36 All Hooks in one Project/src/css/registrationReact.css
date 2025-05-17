@@ -1,0 +1,29 @@
+@import "tailwindcss";
+
+@layer components {
+  h1 {
+    @apply text-3xl text-center;
+  }
+  div {
+    @apply flex flex-col w-auto justify-center border p-3;
+  }
+  form {
+    @apply w-full sm:w-full md:w-2/5 md:justify-center  flex flex-col justify-around  mt-3 ;
+  }
+
+  form input{
+    @apply border rounded;
+  }
+  .btn-submit{
+    @apply p-2 border mt-2 rounded bg-blue-500 font-bold text-white active:scale-105;
+  }
+}
+
+
+/* 
+sm: 640px.
+md: 768px.
+lg: 1024px.
+xl: 1280px.
+2xl: 1536px.
+*/
