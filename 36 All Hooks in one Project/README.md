@@ -118,4 +118,5 @@ function Display({ name }) {
 
 # Challenge of useState Added
 
-> components/hooks/useState
+components/hooks/useState/ChallengeUseState.jsx
+components/hooks/useState/RegistrationReact.jsx
