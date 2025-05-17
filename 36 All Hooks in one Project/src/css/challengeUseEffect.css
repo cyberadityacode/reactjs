@@ -1,0 +1,23 @@
+@import "tailwindcss";
+
+@layer components{
+    .parent-div{
+        @apply  flex flex-col items-center h-screen justify-center;
+    }
+    h1{
+        @apply text-center;
+    }
+    .counter{
+        @apply border p-2 mt-2 font-semibold;
+    }
+
+    button{
+        @apply p-2  border mt-2 active:scale-105 rounded bg-green-700 font-semibold text-white;
+    }
+    .input-text{
+        @apply border mt-2;
+    }
+    .input-display{
+        @apply mt-2;
+    }
+}
