@@ -16,6 +16,7 @@ import LoginReact from '../components/hooks/useState/LoginReact.jsx'
 import ChallengeUseEffect from '../components/hooks/useEffect/ChallengeUseEffect.jsx'
 import CleanUpFunctionExample from '../components/hooks/useEffect/CleanUpFunctionExample.jsx'
 import HowNotToFetchAPI from '../components/hooks/useEffect/HowNotToFetchAPI.jsx'
+import HowToFetchAPI from '../components/hooks/useEffect/HowToFetchAPI.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -25,6 +26,7 @@ createRoot(document.getElementById('root')).render(
     {/* <LoginReact /> */}
     {/* <ChallengeUseEffect /> */}
     {/* <CleanUpFunctionExample /> */}
-    <HowNotToFetchAPI />
+    {/* <HowNotToFetchAPI /> */}
+    <HowToFetchAPI />
   </StrictMode> 
 )
