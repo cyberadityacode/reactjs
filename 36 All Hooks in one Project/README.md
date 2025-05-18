@@ -121,3 +121,8 @@ function Display({ name }) {
 - components/hooks/useState/ChallengeUseState.jsx
 - components/hooks/useState/RegistrationReact.jsx
 - components/hooks/useState/LoginReact.jsx with external validation
+
+# Challenge of useEffect Added
+
+- components/hooks/useEffect/ChallengeUseEffect.jsx
+- components/hooks/useEffect/CleanUpFunctionExample.jsx

@@ -10,6 +10,7 @@ import ChallengeUseState from '../components/hooks/useState/ChallengeUseState.js
 import RegistrationReact from '../components/hooks/useState/RegistrationReact.jsx'
 import LoginReact from '../components/hooks/useState/LoginReact.jsx'
 import ChallengeUseEffect from '../components/hooks/useEffect/ChallengeUseEffect.jsx'
+import CleanUpFunctionExample from '../components/hooks/useEffect/CleanUpFunctionExample.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -17,6 +18,7 @@ createRoot(document.getElementById('root')).render(
     {/* <ChallengeUseState /> */}
     {/* <RegistrationReact /> */}
     {/* <LoginReact /> */}
-    <ChallengeUseEffect />
+    {/* <ChallengeUseEffect /> */}
+    <CleanUpFunctionExample />
   </StrictMode> 
 )
