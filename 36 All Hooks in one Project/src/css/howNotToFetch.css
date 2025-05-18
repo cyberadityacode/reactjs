@@ -1,0 +1,10 @@
+@import "tailwindcss";
+
+@layer components{
+    div{
+        @apply flex flex-col;
+    }
+    ul{
+        @apply list-decimal list-inside
+    }
+}

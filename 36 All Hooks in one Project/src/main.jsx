@@ -4,13 +4,18 @@ import { createRoot } from 'react-dom/client'
 
 // import '../src/css/hooks.css'
 // import '../src/css/RegistrationReact.css'
-import '../src/css/challengeUseEffect.css'
+// import '../src/css/challengeUseEffect.css'
+// import '../src/css/howNotToFetchAPI.css'
 // import App from './App.jsx'
+
+import '../src/css/howNotToFetch.css'
+
 import ChallengeUseState from '../components/hooks/useState/ChallengeUseState.jsx'
 import RegistrationReact from '../components/hooks/useState/RegistrationReact.jsx'
 import LoginReact from '../components/hooks/useState/LoginReact.jsx'
 import ChallengeUseEffect from '../components/hooks/useEffect/ChallengeUseEffect.jsx'
 import CleanUpFunctionExample from '../components/hooks/useEffect/CleanUpFunctionExample.jsx'
+import HowNotToFetchAPI from '../components/hooks/useEffect/HowNotToFetchAPI.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -19,6 +24,7 @@ createRoot(document.getElementById('root')).render(
     {/* <RegistrationReact /> */}
     {/* <LoginReact /> */}
     {/* <ChallengeUseEffect /> */}
-    <CleanUpFunctionExample />
+    {/* <CleanUpFunctionExample /> */}
+    <HowNotToFetchAPI />
   </StrictMode> 
 )

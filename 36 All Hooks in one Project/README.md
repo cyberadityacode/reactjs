@@ -126,3 +126,11 @@ function Display({ name }) {
 
 - components/hooks/useEffect/ChallengeUseEffect.jsx
 - components/hooks/useEffect/CleanUpFunctionExample.jsx
+
+- Added Component HowNotToFetchAPI Data -> 
+
+Check the Network tab in your dev tools to witness thousands of requests being made, because request is made in infinite loops.
+
+Because the moment setApiData alters the value of apiData, our component gets re-rendered, it sets another value of apiData and makes a call to our API, and recursively, it'll continue to bleed network request tab.
+In this case, it's better to abstain from consequentialism and embrace deontology (useEffect).
+
