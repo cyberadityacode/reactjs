@@ -150,7 +150,10 @@ In this case, it's better to abstain from consequentialism and embrace deontolog
 | 10 | Can be used with `forwardRef` to expose functions to parent components (Depricated in React19)   |                      |
 
 
-# Challenge of useRef Added
+# Challenges of useRef 
 
-- components/hooks/useRef/UseRefFirstComponent.jsx (1,2 Tasks - Level 1)
-- components/hooks/useRef/UseRefSecondComponent.jsx (3,4 Tasks - Level 2)
+- components/hooks/useRef/UseRefFirstComponent.jsx (Tasks[1,2] - Level 1)
+- components/hooks/useRef/UseRefSecondComponent.jsx (Tasks[3,4] - Level 2)
+- components/hooks/useRef/UseRefThirdComponent.jsx (Tasks[3,4] - Level 3)
+- components/hooks/useRef/UseRefThirdComponent.jsx (Tasks[5] - Level 3)
+
