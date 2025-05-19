@@ -1,5 +1,5 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
 // import './index.css'
 
 // import '../src/css/hooks.css'
@@ -8,17 +8,18 @@ import { createRoot } from 'react-dom/client'
 // import '../src/css/howNotToFetchAPI.css'
 // import App from './App.jsx'
 
-import '../src/css/howNotToFetch.css'
+import "../src/css/howNotToFetch.css";
 
-import ChallengeUseState from '../components/hooks/useState/ChallengeUseState.jsx'
-import RegistrationReact from '../components/hooks/useState/RegistrationReact.jsx'
-import LoginReact from '../components/hooks/useState/LoginReact.jsx'
-import ChallengeUseEffect from '../components/hooks/useEffect/ChallengeUseEffect.jsx'
-import CleanUpFunctionExample from '../components/hooks/useEffect/CleanUpFunctionExample.jsx'
-import HowNotToFetchAPI from '../components/hooks/useEffect/HowNotToFetchAPI.jsx'
-import HowToFetchAPI from '../components/hooks/useEffect/HowToFetchAPI.jsx'
+import ChallengeUseState from "../components/hooks/useState/ChallengeUseState.jsx";
+import RegistrationReact from "../components/hooks/useState/RegistrationReact.jsx";
+import LoginReact from "../components/hooks/useState/LoginReact.jsx";
+import ChallengeUseEffect from "../components/hooks/useEffect/ChallengeUseEffect.jsx";
+import CleanUpFunctionExample from "../components/hooks/useEffect/CleanUpFunctionExample.jsx";
+import HowNotToFetchAPI from "../components/hooks/useEffect/HowNotToFetchAPI.jsx";
+import HowToFetchAPI from "../components/hooks/useEffect/HowToFetchAPI.jsx";
+import UseRefFirstComponent from "../components/hooks/useRef/UseRefFirstComponent.jsx";
 
-createRoot(document.getElementById('root')).render(
+createRoot(document.getElementById("root")).render(
   <StrictMode>
     {/* <App /> */}
     {/* <ChallengeUseState /> */}
@@ -27,6 +28,7 @@ createRoot(document.getElementById('root')).render(
     {/* <ChallengeUseEffect /> */}
     {/* <CleanUpFunctionExample /> */}
     {/* <HowNotToFetchAPI /> */}
-    <HowToFetchAPI />
-  </StrictMode> 
-)
+    {/* <HowToFetchAPI /> */}
+    <UseRefFirstComponent />
+  </StrictMode>
+);

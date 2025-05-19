@@ -134,3 +134,22 @@ Check the Network tab in your dev tools to witness thousands of requests being m
 Because the moment setApiData alters the value of apiData, our component gets re-rendered, it sets another value of apiData and makes a call to our API, and recursively, it'll continue to bleed network request tab.
 In this case, it's better to abstain from consequentialism and embrace deontology (useEffect).
 
+
+# useRef
+| #  | Concept                                                                   | Description          |
+| -- | ------------------------------------------------------------------------- | -------------------- |
+| 1  | `useRef` returns a **mutable object**                                     | `{ current: value }` |
+| 2  | It **does NOT trigger re-render** when `current` is changed               |                      |
+| 3  | It **persists between renders** (doesn’t reset like a regular variable)   |                      |
+| 4  | Used to **access DOM elements** (e.g., `<input ref={myRef}>`)             |                      |
+| 5  | Used to **store values across renders** without affecting UI              |                      |
+| 6  | Great for **interval/timeout IDs**, **flags**, **scroll positions**, etc. |                      |
+| 7  | Can be combined with `useImperativeHandle` for parent-to-child control    |                      |
+| 8  | Can hold **previous props/state values** for comparison                   |                      |
+| 9  | Can optimize performance by avoiding unnecessary renders                  |                      |
+| 10 | Can be used with `forwardRef` to expose functions to parent components (Depricated in React19)   |                      |
+
+
+# Challenge of useRef Added
+
+- components/hooks/useRef/UseRefFirstComponent.jsx (2 Tasks - Level 1)
