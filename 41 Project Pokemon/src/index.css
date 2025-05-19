@@ -1,1 +1,39 @@
 @import "tailwindcss";
+/* @import url('https://fonts.googleapis.com/css?family=Habibi:regular'); */
+@import url("https://fonts.googleapis.com/css?family=Poetsen+One:regular");
+@layer components {
+  h1 {
+    @apply text-3xl text-center font-primary font-bold;
+  }
+  .search-component {
+    @apply flex justify-center;
+  }
+
+  .parent-card {
+    @apply flex  rounded-md border flex-wrap justify-around  transition-all ease-in-out duration-700;
+  }
+  .pokemon-card {
+    @apply w-60 h-85 p-4 m-4 rounded-md border flex flex-col items-center justify-center shadow-gray-200 hover:shadow-2xl;
+  }
+  .pokemon-card img {
+    @apply size-40 hover:scale-105;
+  }
+  span {
+    @apply text-sm;
+  }
+  .pokemon-card-details {
+    @apply flex flex-wrap gap-2  justify-around w-full;
+  }
+
+  .pokemon-zone {
+    @apply border bg-green-500 hover:bg-green-800 p-2 rounded-2xl text-white text-sm font-bold;
+  }
+
+  .search-pokemon {
+    @apply border rounded w-60 mb-3 p-3;
+  }
+}
+
+@theme {
+  --font-primary: "Poetsen One", "sans-serif";
+}

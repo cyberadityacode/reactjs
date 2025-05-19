@@ -1,12 +1,17 @@
-# React + Vite
+# Project Pokemon
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A simple and responsive React application to browse and search for Pokémon using the [PokéAPI](https://pokeapi.co/). Built with modern web technologies like React, Tailwind CSS, and ES6+.
 
-Currently, two official plugins are available:
+## Demo
+https://cyberadityapokemon.netlify.app/ 
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## Expanding the ESLint configuration
+**Search Functionality** – Filter Pokémon by name in real-time.
+-  **Dynamic Data** – Fetches data from PokéAPI with detailed Pokémon info.
+-  **Tailwind CSS** – Fully responsive and styled using Tailwind.
+-  **Sticky Search Bar** – Always-visible search bar while scrolling.
+-  **Loader Component** – Displays a loading animation during API calls with shimmer effect.
+-  **Custom No Result Message** – Friendly UI for when no Pokémon match the search.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+> api - pokeapi.co/api/v2/pokemon?limit=50
