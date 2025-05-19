@@ -152,4 +152,5 @@ In this case, it's better to abstain from consequentialism and embrace deontolog
 
 # Challenge of useRef Added
 
-- components/hooks/useRef/UseRefFirstComponent.jsx (2 Tasks - Level 1)
+- components/hooks/useRef/UseRefFirstComponent.jsx (1,2 Tasks - Level 1)
+- components/hooks/useRef/UseRefSecondComponent.jsx (3,4 Tasks - Level 2)

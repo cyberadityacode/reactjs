@@ -18,6 +18,7 @@ import CleanUpFunctionExample from "../components/hooks/useEffect/CleanUpFunctio
 import HowNotToFetchAPI from "../components/hooks/useEffect/HowNotToFetchAPI.jsx";
 import HowToFetchAPI from "../components/hooks/useEffect/HowToFetchAPI.jsx";
 import UseRefFirstComponent from "../components/hooks/useRef/UseRefFirstComponent.jsx";
+import UseRefSecondComponent from "../components/hooks/useRef/UseRefSecondComponent.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -29,6 +30,7 @@ createRoot(document.getElementById("root")).render(
     {/* <CleanUpFunctionExample /> */}
     {/* <HowNotToFetchAPI /> */}
     {/* <HowToFetchAPI /> */}
-    <UseRefFirstComponent />
+    {/* <UseRefFirstComponent /> */}
+    <UseRefSecondComponent />
   </StrictMode>
 );
