@@ -199,3 +199,6 @@ previous prop value using useRef.
 
 Use a ref to store scroll position before the component unmounts.
 Log it to the console
+
+- Task 8: Create a child component exposing a method to the parent
+by Use forwardRef and useImperativeHandle
