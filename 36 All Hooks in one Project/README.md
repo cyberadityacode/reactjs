@@ -219,3 +219,19 @@ Store previously processed results in a ref cache to avoid recomputation
 Use useRef to cache results of each number.
 
 Avoid re-processing previously handled values.
+
+
+## useId Hook
+
+It generates a unique string ID, but don't leverage it to generate keys in a list.
+
+A single ID can be used for multiple form elements with concatenation.
+Why is it necessary? Consider a scenario where you have multiple forms in your app, you, as a developer, might use ID as username for every username field, then when you try to access its reference from javascript. It will cause dilemna.  Henceforth, it's a good practice to useId hook.
+
+- Unique across the app: Ensures ID collisions don't happen.
+
+- Consistent with SSR: Same ID is used on both server and client, avoiding hydration issues.
+
+- Stable across renders: The ID remains the same even after re-renders.
+
+- Automatic prefixing: React prefixes the ID with something like :r0: to ensure uniqueness.

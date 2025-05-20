@@ -27,6 +27,7 @@ import UseRefSixthComponent from "../components/hooks/useRef/UseRefSixthComponen
 import UseRefSeventhComponent from "../components/hooks/useRef/UseRefSeventhComponent.jsx";
 import UseRefEighthComponent from "../components/hooks/useRef/UseRefEighthComponent.jsx";
 import UseRefNinthComponent from "../components/hooks/useRef/UseRefNinthComponent.jsx";
+import UseIdLessonOne from "../components/hooks/useId/UseIdLessonOne.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -45,7 +46,8 @@ createRoot(document.getElementById("root")).render(
     {/* <UseRefFifthComponent /> <ParentComponentFifth /> */}
     {/* <UseRefSixthComponent /> */}
     {/* <UseRefSeventhComponent /> */}
-    <UseRefEighthComponent />
-    <UseRefNinthComponent />
+  {/*   <UseRefEighthComponent />
+    <UseRefNinthComponent /> */}
+    <UseIdLessonOne />
   </StrictMode>
 );
