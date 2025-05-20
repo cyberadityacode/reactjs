@@ -202,3 +202,10 @@ Log it to the console
 
 - Task 8: Create a child component exposing a method to the parent
 by Use forwardRef and useImperativeHandle
+
+Task 9: Use useRef for DOM measurements
+Use ref.current.getBoundingClientRect() to measure the size of a box
+
+Show it in UI after mount
+getBoundingClientRect() is a built-in DOM method that returns the size and position of an HTML element relative to the viewport.
+
