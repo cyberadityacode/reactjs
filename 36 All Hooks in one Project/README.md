@@ -152,8 +152,44 @@ In this case, it's better to abstain from consequentialism and embrace deontolog
 
 # Challenges of useRef 
 
-- components/hooks/useRef/UseRefFirstComponent.jsx (Tasks[1,2] - Level 1)
-- components/hooks/useRef/UseRefSecondComponent.jsx (Tasks[3,4] - Level 2)
-- components/hooks/useRef/UseRefThirdComponent.jsx (Tasks[3,4] - Level 3)
-- components/hooks/useRef/UseRefThirdComponent.jsx (Tasks[5] - Level 3)
+## Level 1 
+
+> components/hooks/useRef/UseRefFirstComponent.jsx (Tasks[1,2] - Level 1)
+
+- Task 1: Autofocus an input on mount
+Create a login form. Autofocus the email input when the component mounts.
+
+- Task 2: Button to focus on another input
+Create two inputs. Use a button to focus the second input when clicked.
+
+## Level 2: Persistent Values Without Re-render
+
+- Task 3: Build a counter with useRef
+
+Clicking a button should increase the value stored in useRef.
+
+Log the value in the console.
+
+Show on-screen how the value doesn’t change unless a re-render is triggered manually.
+
+- Task 4: Implement a non-re-rendering timer
+
+>  components/hooks/useRef/UseRefSecondComponent.jsx (Tasks[3,4] - Level 2)
+
+## Level 3: Practical Use Cases
+
+- Task 5: Prevent multiple API submissions
+
+>  components/hooks/useRef/UseRefThirdComponent.jsx (Tasks[5,6] - Level 3)
+Create a form. Use a ref flag (isSubmitting) to prevent multiple submits.
+Use setTimeout to simulate API delay.
+Use setInterval and useRef to count seconds.
+Display the internal counter via console (don’t update UI).
+Add a button to print the current seconds value.
+
+- Task 6: Track previous prop or state
+Build a component that receives a prop and displays both:
+
+current prop value
+previous prop value using useRef.
 

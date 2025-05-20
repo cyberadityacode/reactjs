@@ -20,6 +20,7 @@ import HowToFetchAPI from "../components/hooks/useEffect/HowToFetchAPI.jsx";
 import UseRefFirstComponent from "../components/hooks/useRef/UseRefFirstComponent.jsx";
 import UseRefSecondComponent from "../components/hooks/useRef/UseRefSecondComponent.jsx";
 import UseRefThirdComponent from "../components/hooks/useRef/UseRefThirdComponent.jsx";
+import UseRefFourthComponent from "../components/hooks/useRef/UseRefFourthComponent.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -33,6 +34,7 @@ createRoot(document.getElementById("root")).render(
     {/* <HowToFetchAPI /> */}
     {/* <UseRefFirstComponent /> */}
     {/* <UseRefSecondComponent /> */}
-    <UseRefThirdComponent />
+    {/* <UseRefThirdComponent /> */}
+    <UseRefFourthComponent />
   </StrictMode>
 );
