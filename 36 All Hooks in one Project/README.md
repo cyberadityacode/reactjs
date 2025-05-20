@@ -193,3 +193,9 @@ Build a component that receives a prop and displays both:
 current prop value
 previous prop value using useRef.
 
+- Task 7: Store scroll position on component unmount
+
+> components/hooks/useRef/UseRefFifthComponent.jsx
+
+Use a ref to store scroll position before the component unmounts.
+Log it to the console

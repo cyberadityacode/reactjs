@@ -21,6 +21,8 @@ import UseRefFirstComponent from "../components/hooks/useRef/UseRefFirstComponen
 import UseRefSecondComponent from "../components/hooks/useRef/UseRefSecondComponent.jsx";
 import UseRefThirdComponent from "../components/hooks/useRef/UseRefThirdComponent.jsx";
 import UseRefFourthComponent from "../components/hooks/useRef/UseRefFourthComponent.jsx";
+import UseRefFifthComponent from "../components/hooks/useRef/UseRefFifthComponent.jsx";
+import ParentComponentFifth from "../components/hooks/useRef/UseRefFifthComponent.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -35,6 +37,7 @@ createRoot(document.getElementById("root")).render(
     {/* <UseRefFirstComponent /> */}
     {/* <UseRefSecondComponent /> */}
     {/* <UseRefThirdComponent /> */}
-    <UseRefFourthComponent />
+    {/* <UseRefFourthComponent /> */}
+    {/* <UseRefFifthComponent /> */} <ParentComponentFifth />
   </StrictMode>
 );
