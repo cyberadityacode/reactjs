@@ -28,6 +28,7 @@ import UseRefSeventhComponent from "../components/hooks/useRef/UseRefSeventhComp
 import UseRefEighthComponent from "../components/hooks/useRef/UseRefEighthComponent.jsx";
 import UseRefNinthComponent from "../components/hooks/useRef/UseRefNinthComponent.jsx";
 import UseIdLessonOne from "../components/hooks/useId/UseIdLessonOne.jsx";
+import PropsDrilling from "../components/PropsDrilling.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -48,6 +49,7 @@ createRoot(document.getElementById("root")).render(
     {/* <UseRefSeventhComponent /> */}
   {/*   <UseRefEighthComponent />
     <UseRefNinthComponent /> */}
-    <UseIdLessonOne />
+    {/* <UseIdLessonOne /> */}
+    <PropsDrilling />
   </StrictMode>
 );

@@ -244,3 +244,14 @@ Mismatch between server-rendered HTML and client-rendered HTML in SSR context.
 
 **DOM Conflict**
 Duplicate id values causing issues in browser JavaScript (even without SSR).
+
+
+# Props Drilling in React
+
+| Concept        | Description                                                                      |
+| -------------- | -------------------------------------------------------------------------------- |
+| Props Drilling | Passing props through components that don’t need them just to reach a deep child |
+| Problem        | Makes code verbose and hard to manage                                            |
+| Alternatives   | React Context, Redux, Zustand, Composition( component needing data is closer to where it's created.)                                       |
+
+> Added PropsDrilling.jsx to components
