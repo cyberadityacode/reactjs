@@ -36,6 +36,7 @@ import Services from "../components/hooks/useContext/Services.jsx";
 import MyCustomHook from "../components/hooks/useCustomHook/MyCustomHook.jsx";
 import UseReducerFirst from "../components/hooks/useReducer/UseReducerFirst.jsx";
 import UseReducerSecond from "../components/hooks/useReducer/UseReducerSecond.jsx";
+import UseReducerThird from "../components/hooks/useReducer/UseReducerThird.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -65,6 +66,7 @@ createRoot(document.getElementById("root")).render(
     <Services /> */}
     {/* <MyCustomHook /> */}
     {/* <UseReducerFirst /> */}
-    <UseReducerSecond />
+    {/* <UseReducerSecond /> */}
+    <UseReducerThird />
   </StrictMode>
 );
