@@ -33,6 +33,7 @@ import Home from "../components/hooks/useContext/Home.jsx";
 import { BioProvider } from "../components/hooks/useContext/ContextAPIComponent.jsx";
 import About from "../components/hooks/useContext/About.jsx";
 import Services from "../components/hooks/useContext/Services.jsx";
+import MyCustomHook from "../components/hooks/useCustomHook/MyCustomHook.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -55,10 +56,11 @@ createRoot(document.getElementById("root")).render(
     <UseRefNinthComponent /> */}
     {/* <UseIdLessonOne /> */}
     {/* <PropsDrilling /> */}
-    <BioProvider>
+   {/*  <BioProvider>
       <Home />
       <About />
     </BioProvider>
-    <Services />
+    <Services /> */}
+    <MyCustomHook />
   </StrictMode>
 );

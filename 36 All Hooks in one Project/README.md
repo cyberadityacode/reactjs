@@ -296,3 +296,8 @@ const value = useContext(MyContext);
 - Language/internationalization (i18n)
 
 - Sharing a global configuration or settings
+
+
+# Custom Hook
+
+Added MyCustomHook Component and useOnlineStatus custom hook, which checks whether the app is connected to the internet or not. It will disable the button and its text if the internet is disconnected.
