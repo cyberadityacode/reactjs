@@ -29,6 +29,9 @@ import UseRefEighthComponent from "../components/hooks/useRef/UseRefEighthCompon
 import UseRefNinthComponent from "../components/hooks/useRef/UseRefNinthComponent.jsx";
 import UseIdLessonOne from "../components/hooks/useId/UseIdLessonOne.jsx";
 import PropsDrilling from "../components/PropsDrilling.jsx";
+import Home from "../components/hooks/useContext/Home.jsx";
+import { BioProvider } from "../components/hooks/useContext/ContextAPIComponent.jsx";
+import About from "../components/hooks/useContext/About.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -47,9 +50,13 @@ createRoot(document.getElementById("root")).render(
     {/* <UseRefFifthComponent /> <ParentComponentFifth /> */}
     {/* <UseRefSixthComponent /> */}
     {/* <UseRefSeventhComponent /> */}
-  {/*   <UseRefEighthComponent />
+    {/*   <UseRefEighthComponent />
     <UseRefNinthComponent /> */}
     {/* <UseIdLessonOne /> */}
-    <PropsDrilling />
+    {/* <PropsDrilling /> */}
+    <BioProvider>
+      <Home />
+      <About />
+    </BioProvider>
   </StrictMode>
 );

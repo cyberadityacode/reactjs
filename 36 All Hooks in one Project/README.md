@@ -220,7 +220,6 @@ Use useRef to cache results of each number.
 
 Avoid re-processing previously handled values.
 
-
 ## useId Hook
 
 It generates a unique string ID, but don't leverage it to generate keys in a list.
@@ -245,13 +244,55 @@ Mismatch between server-rendered HTML and client-rendered HTML in SSR context.
 **DOM Conflict**
 Duplicate id values causing issues in browser JavaScript (even without SSR).
 
-
 # Props Drilling in React
 
-| Concept        | Description                                                                      |
-| -------------- | -------------------------------------------------------------------------------- |
-| Props Drilling | Passing props through components that don’t need them just to reach a deep child |
-| Problem        | Makes code verbose and hard to manage                                            |
-| Alternatives   | React Context, Redux, Zustand, Composition( component needing data is closer to where it's created.)                                       |
+| Concept        | Description                                                                                          |
+| -------------- | ---------------------------------------------------------------------------------------------------- |
+| Props Drilling | Passing props through components that don’t need them just to reach a deep child                     |
+| Problem        | Makes code verbose and hard to manage                                                                |
+| Alternatives   | React Context, Redux, Zustand, Composition( component needing data is closer to where it's created.) |
 
 > Added PropsDrilling.jsx to components
+
+# useContext Hook in React
+
+In a typical React app, data is passed from parent to child components via props. But if you have deeply nested components, passing data through many layers can become tedious and error-prone.
+
+Context API solves this by allowing you to:
+
+1. Create a global state or value (like theme, language, user info, etc.)
+
+2. Provide it to a component tree
+
+3. Access it from any nested child component, regardless of how deep it is
+
+> 3 Simple Steps to leverage the Context API
+
+### Step 1 - Create a Context
+
+```jsx
+const MyContext = React.createContext();
+```
+
+### Step 2 - Provide a value using a Provider
+
+```jsx
+<MyContext.Provider value={someValue}>
+  <YourComponent />
+</MyContext.Provider>
+```
+
+### Step 3 - Consume the value using useContext hook
+
+```jsx
+const value = useContext(MyContext);
+```
+
+#### Common use cases
+- Theme management (light/dark mode)
+
+- User authentication
+
+- Language/internationalization (i18n)
+
+- Sharing a global configuration or settings
