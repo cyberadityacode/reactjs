@@ -32,6 +32,7 @@ import PropsDrilling from "../components/PropsDrilling.jsx";
 import Home from "../components/hooks/useContext/Home.jsx";
 import { BioProvider } from "../components/hooks/useContext/ContextAPIComponent.jsx";
 import About from "../components/hooks/useContext/About.jsx";
+import Services from "../components/hooks/useContext/Services.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -58,5 +59,6 @@ createRoot(document.getElementById("root")).render(
       <Home />
       <About />
     </BioProvider>
+    <Services />
   </StrictMode>
 );
