@@ -34,6 +34,7 @@ import { BioProvider } from "../components/hooks/useContext/ContextAPIComponent.
 import About from "../components/hooks/useContext/About.jsx";
 import Services from "../components/hooks/useContext/Services.jsx";
 import MyCustomHook from "../components/hooks/useCustomHook/MyCustomHook.jsx";
+import UseReducerFirst from "../components/hooks/useReducer/UseReducerFirst.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -61,6 +62,7 @@ createRoot(document.getElementById("root")).render(
       <About />
     </BioProvider>
     <Services /> */}
-    <MyCustomHook />
+    {/* <MyCustomHook /> */}
+    <UseReducerFirst />
   </StrictMode>
 );

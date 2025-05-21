@@ -301,3 +301,16 @@ const value = useContext(MyContext);
 # Custom Hook
 
 Added MyCustomHook Component and useOnlineStatus custom hook, which checks whether the app is connected to the internet or not. It will disable the button and its text if the internet is disconnected.
+
+# useReducer Hook
+
+Alternative to the useState hook that is preferred when you have complex state logic. It is useful when the state transitions depend on previous state values or when you need to handle actions that can update the state differently.
+
+```jsx
+const [state, dispatch] = useReducer(reducer, initialState);
+```
+
+1. **reducer**: A function that defines how the state should be updated based on the action. It takes two parameters: the current state and the action.
+2. **initialState**: The initial value of the state.
+3. **state**: The current state returned from the useReducer hook.
+4. **dispatch**: A function used to send an action to the reducer to update the state.
