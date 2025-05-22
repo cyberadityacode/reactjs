@@ -42,6 +42,7 @@ import UseReducerFifth from "../components/hooks/useReducer/UseReducerFifth.jsx"
 import ReactMemoFirst from "../components/hooks/ReactMemo/ReactMemoFirst.jsx";
 import UseMemoFirstComponent from "../components/hooks/useMemo/UseMemoFirstComponent.jsx";
 import PassingObjectReactMemo from "../components/hooks/ReactMemo/PassingObjectReactMemo.jsx";
+import UseCallBackFirst from "../components/hooks/useCallback/UseCallBackFirst.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -77,6 +78,7 @@ createRoot(document.getElementById("root")).render(
     {/* <UseReducerFifth /> */}
     {/* <ReactMemoFirst /> */}
     {/* <UseMemoFirstComponent /> */}
-    <PassingObjectReactMemo />
+    {/* <PassingObjectReactMemo /> */}
+    <UseCallBackFirst />
   </StrictMode>
 );
