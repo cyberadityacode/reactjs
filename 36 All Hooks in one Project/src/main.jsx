@@ -39,6 +39,7 @@ import UseReducerSecond from "../components/hooks/useReducer/UseReducerSecond.js
 import UseReducerThird from "../components/hooks/useReducer/UseReducerThird.jsx";
 import UseReducerForth from "../components/hooks/useReducer/UseReducerForth.jsx";
 import UseReducerFifth from "../components/hooks/useReducer/UseReducerFifth.jsx";
+import ReactMemoFirst from "../components/hooks/ReactMemo/ReactMemoFirst.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -71,6 +72,7 @@ createRoot(document.getElementById("root")).render(
     {/* <UseReducerSecond /> */}
     {/* <UseReducerThird /> */}
     {/* <UseReducerForth /> */}
-    <UseReducerFifth />
+    {/* <UseReducerFifth /> */}
+    <ReactMemoFirst />
   </StrictMode>
 );
