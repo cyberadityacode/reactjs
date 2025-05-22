@@ -314,3 +314,13 @@ const [state, dispatch] = useReducer(reducer, initialState);
 2. **initialState**: The initial value of the state.
 3. **state**: The current state returned from the useReducer hook.
 4. **dispatch**: A function used to send an action to the reducer to update the state.
+
+# React.memo 
+
+To memoize component of child, so that whenever Parent Component Re-Renders, Child Component is safe.
+
+# useMemo 
+
+To memoize specific value of the child component or expensive function value to prevent re-rendering.
+In this case, A Component renders but its memoized value is prevented from re-rendering.
+
