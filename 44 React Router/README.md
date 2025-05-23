@@ -20,3 +20,13 @@
 5. Since you've already declared children property in your createBrowserRouter function, The Pages (Home, About, Contact, Movie) will be considered Children of the AppLayout Component.
 
 6. The AppLayout Component has fixed the Header and Footer. However, the Outlet acts as a catalyst to allow nested children to be addressed within the bun of the Header and Footer.
+
+---
+
+# Declare Active Class
+
+Easy Way -> define active class in index.css, because navlink automatically generates active class.
+
+Moderate way -> use conditional navlink classname by using isActive property.
+
+Smart Way -> use named custom arrow function to declare className dynamically.

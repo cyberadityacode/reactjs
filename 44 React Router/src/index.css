@@ -1,0 +1,7 @@
+@import "tailwindcss";
+
+/* @layer components{
+    .active{
+        @apply underline  transition-all duration-1000
+    }
+} */
