@@ -3,6 +3,7 @@ import Home from "../src/pages/Home";
 import About from "../src/pages/About";
 import Contact from "../src/pages/Contact";
 import Movie from "../src/pages/Movie";
+import ErrorPage from "../src/pages/ErrorPage";
 import {
   createBrowserRouter,
   createRoutesFromElements,
@@ -18,6 +19,7 @@ export default function App() {
     {
       path: "/",
       element: <AppLayout />,
+      errorElement: <ErrorPage />, 
       children: [
         {
           path: "/",
@@ -35,6 +37,11 @@ export default function App() {
           path: "/contact",
           element: <Contact />,
         },
+        {
+          path: "*",
+          element:<ErrorPage />,
+        },
+        
       ],
     },
   ]);
