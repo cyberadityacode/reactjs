@@ -1,12 +1,22 @@
-# React + Vite
+# React Router
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+1. createBrowserRouter in App.jsx
+2. Define Path, Elements and Children.
+3. Return  
+``` jsx 
+        <RouterProvider router={router} />
+```
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+> RouterProvider is a component in React Router that provides routing context to its children. 
 
-## Expanding the ESLint configuration
+> It's used to connect the defined routes with the application's UI. It takes a router object, typically created using createBrowserRouter, as a prop and makes the routing information available throughout the component tree.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+
+4. Declare Header, Outlet and Footer Component in AppLayout.jsx
+
+> The Outlet component allows nested routes to render their element content out and anything else the layout route is rendering.
+
+5. Since you've already declared children property in your createBrowserRouter function, The Pages (Home, About, Contact, Movie) will be considered Children of the AppLayout Component.
+
+6. The AppLayout Component has fixed the Header and Footer. However, the Outlet acts as a catalyst to allow nested children to be addressed within the bun of the Header and Footer.
