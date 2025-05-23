@@ -2,16 +2,15 @@
 
 1. createBrowserRouter in App.jsx
 2. Define Path, Elements and Children.
-3. Return  
-``` jsx 
-        <RouterProvider router={router} />
+3. Return
+
+```jsx
+<RouterProvider router={router} />
 ```
 
-
-> RouterProvider is a component in React Router that provides routing context to its children. 
+> RouterProvider is a component in React Router that provides routing context to its children.
 
 > It's used to connect the defined routes with the application's UI. It takes a router object, typically created using createBrowserRouter, as a prop and makes the routing information available throughout the component tree.
-
 
 4. Declare Header, Outlet and Footer Component in AppLayout.jsx
 
@@ -30,3 +29,24 @@ Easy Way -> define active class in index.css, because navlink automatically gene
 Moderate way -> use conditional navlink classname by using isActive property.
 
 Smart Way -> use named custom arrow function to declare className dynamically.
+
+# Error Page Redirection
+
+add property to createBrowserRouter;
+```jsx
+errorElement: <ErrorPage />
+```
+within your error Page leverage this code accordingly!
+```jsx
+const error = useRouteError();
+```
+
+# useNavigate in React Router
+
+To customize redirection of page to particular step.
+
+```jsx
+const navigate = useNavigate();
+```
+
+apply onClick handler to button, custom arrow function with operation navigate(-1);
