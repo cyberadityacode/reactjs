@@ -55,3 +55,7 @@ apply onClick handler to button, custom arrow function with operation navigate(-
 # Fetch API Data with React Router Loaders (without useEffect)
 
 To fetch data from an API by using loader and useLoaderData hook.
+
+## Added ShimmerEffect on Loading with useNavigation Hook
+
+## Added env file to conceal API KEY
