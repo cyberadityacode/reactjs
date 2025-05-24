@@ -33,10 +33,13 @@ Smart Way -> use named custom arrow function to declare className dynamically.
 # Error Page Redirection
 
 add property to createBrowserRouter;
+
 ```jsx
-errorElement: <ErrorPage />
+errorElement: <ErrorPage />;
 ```
+
 within your error Page leverage this code accordingly!
+
 ```jsx
 const error = useRouteError();
 ```
@@ -51,7 +54,6 @@ const navigate = useNavigate();
 
 apply onClick handler to button, custom arrow function with operation navigate(-1);
 
-
 # Fetch API Data with React Router Loaders (without useEffect)
 
 To fetch data from an API by using loader and useLoaderData hook.
@@ -63,10 +65,23 @@ To fetch data from an API by using loader and useLoaderData hook.
 This will unexpectedly expose API Key in your network tab (intiator subtab) despite concealing .env file.
 Because you're using fetch inside a React component (frontend). Even though you’re hiding the key in .env, during the build time, it's bundled into your frontend JavaScript, and therefore visible to anyone inspecting the source. (using initiator subtab of the Network Tab)
 
-To truly protect your API key, you need to proxy the request through a backend. 
+To truly protect your API key, you need to proxy the request through a backend.
 Assuming you're using Vite or Parcel, you can use an Express.js backend (or any backend framework of your choice).
 
-Step 1 -  Create a backend server
+Step 1 - Create a backend server
 Step 2 - On your frontend, fetch from your backend
 
 If deploying (e.g. on Vercel, Netlify, etc.), make sure your backend is deployed separately or integrated using serverless functions or API routes (Next.js is great for this).
+
+## Dynamic Routing in React Router
+
+add property to createBrowserRouter
+
+```jsx
+{
+          path: "/movie/:movieId",
+          element: <MovieDetails />,
+          loader: getMovieDetails,
+}
+```
+

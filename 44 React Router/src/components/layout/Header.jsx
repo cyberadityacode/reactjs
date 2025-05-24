@@ -8,7 +8,7 @@ export default function Header() {
   
   return (
     <>
-      <div className="flex bg-white">
+      <div className="flex bg-white ">
         <div className="text-4xl flex items-center justify-center">
           <a href="">
             <h1>Logo</h1>

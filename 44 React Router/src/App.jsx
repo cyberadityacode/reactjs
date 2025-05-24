@@ -13,6 +13,9 @@ import {
 } from "react-router-dom";
 import AppLayout from "./components/layout/AppLayout";
 import getMovieData from "./api/GetAPIData";
+import MovieDetails from "./pages/MovieDetails";
+import GetMovieDetails from "./api/GetMovieDetails";
+import getMovieDetails from "./api/GetMovieDetails";
 
 export default function App() {
   // Latest Way
@@ -32,6 +35,12 @@ export default function App() {
           loader: getMovieData, 
           hydrateFallbackElement: <h1>loading...</h1>
         },
+        {
+          path: "/movie/:movieId",
+          element: <MovieDetails />,
+          loader: getMovieDetails,
+        }
+        ,
         {
           path: "/about",
           element: <About />,
