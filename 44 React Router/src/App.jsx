@@ -1,7 +1,7 @@
 import React from "react";
 import Home from "../src/pages/Home";
 import About from "../src/pages/About";
-import Contact from "../src/pages/Contact";
+import Contact, { contactData } from "../src/pages/Contact";
 import Movie from "../src/pages/Movie";
 import ErrorPage from "../src/pages/ErrorPage";
 import {
@@ -48,6 +48,7 @@ export default function App() {
         {
           path: "/contact",
           element: <Contact />,
+          action: contactData,
         },
         {
           path: "*",
