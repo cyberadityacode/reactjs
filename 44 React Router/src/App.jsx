@@ -12,6 +12,7 @@ import {
   Routes,
 } from "react-router-dom";
 import AppLayout from "./components/layout/AppLayout";
+import getMovieData from "./api/GetAPIData";
 
 export default function App() {
   // Latest Way
@@ -28,6 +29,8 @@ export default function App() {
         {
           path: "/movie",
           element: <Movie />,
+          loader: getMovieData, 
+          hydrateFallbackElement: <h1>loading...</h1>
         },
         {
           path: "/about",

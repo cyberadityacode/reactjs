@@ -50,3 +50,8 @@ const navigate = useNavigate();
 ```
 
 apply onClick handler to button, custom arrow function with operation navigate(-1);
+
+
+# Fetch API Data with React Router Loaders (without useEffect)
+
+To fetch data from an API by using loader and useLoaderData hook.
