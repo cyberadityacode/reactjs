@@ -7,7 +7,7 @@ export default async function GetAPIData() {
         // https://www.omdbapi.com/?t=titanic&apikey=6e9a30a7
         // i=tt3896198&apikey=
     //    const response=  await fetch('https://www.omdbapi.com/?t=titanic&apikey=6e9a30a7')
-    const response = await fetch('https://www.omdbapi.com/?i=tt3896198&apikey=1c12799f&s=titanic&page=1')
+    const response = await fetch(`https://www.omdbapi.com/?i=tt3896198&apikey=${import.meta.env.VITE_API_KEY}&s=titanic&page=1`)
        const data = response.json();
 
        return data

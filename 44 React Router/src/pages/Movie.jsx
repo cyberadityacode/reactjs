@@ -17,11 +17,13 @@ export default function Movie() {
       </div>
     </div> */
     <>
-      <h1>Hi</h1>
       <div className=" flex w-fit mx-auto">
-        <ul className="flex flex-wrap gap-4 justify-center items-center" >
-          {movieData.Search.map((currentMovie)=>(
-            <MovieCard key={movieData.Search.imdbID} currentMovie={currentMovie}/>
+        <ul className="flex flex-wrap gap-4 justify-center items-center">
+          {movieData.Search.map((currentMovie) => (
+            <MovieCard
+              key={movieData.Search.imdbID}
+              currentMovie={currentMovie}
+            />
           ))}
         </ul>
       </div>
