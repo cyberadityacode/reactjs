@@ -1,0 +1,16 @@
+@import "tailwindcss";
+
+@layer components{
+    button{
+        @apply mt-2 p-2 border mx-2  active:scale-105;
+    }
+    span{
+        @apply font-semibold
+    }
+    ul{
+        @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6;
+    }
+    li{
+        @apply p-3 border rounded shadow hover:shadow-2xl;
+    }
+}
