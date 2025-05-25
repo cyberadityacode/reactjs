@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { deletePost, getPost } from "../api/PostAPI";
+import Form from "./Form";
 
 export default function Posts() {
   const [data, setData] = useState([]);
@@ -26,26 +27,30 @@ export default function Posts() {
   }, []);
 
   // Curry Function -
-  const deleteSelectedPost = async (id) => {
+  const deleteSelectedPost =useCallback( async (id) => {
     try {
       const res = await deletePost(id);
       if (res.status === 200) {
-        setData((prevData)=> prevData.filter(post=> post.id !==id));
-      }else{
+        setData((prevData) => prevData.filter((post) => post.id !== id));
+      } else {
         console.log("Cannot Delete Data!", res.status);
       }
     } catch (error) {
       console.error(error);
     }
-  };
+  });
   const handleDeletePost = useCallback(
     (id) => () => {
       deleteSelectedPost(id);
     },
-    []
+    [deleteSelectedPost]
   );
   return (
     <div className=" container mx-auto p-4 ">
+      <section>
+        <Form data={data} setData={setData} />
+      </section>
+
       <ul className="list-decimal list-inside space-y-2">
         {data.map((currentData) => {
           return (

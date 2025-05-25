@@ -60,3 +60,10 @@ Use functional setData() (Best Practice)
 ```jsx
 setData(prevData => prevData.filter(post => post.id !== id));
 ```
+
+### Delete Functionality 
+
+- modularized delete handler well (curry + callback).
+
+### Post Functionality
+
