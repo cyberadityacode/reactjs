@@ -67,3 +67,5 @@ setData(prevData => prevData.filter(post => post.id !== id));
 
 ### Post Functionality
 
+### Update Functionality
+

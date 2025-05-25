@@ -4,6 +4,7 @@ import Form from "./Form";
 
 export default function Posts() {
   const [data, setData] = useState([]);
+  const [updateDataAPI, setUpdateDataAPI] = useState({});
   const getPostData = async () => {
     try {
       const res = await getPost();
@@ -27,7 +28,7 @@ export default function Posts() {
   }, []);
 
   // Curry Function -
-  const deleteSelectedPost =useCallback( async (id) => {
+  const deleteSelectedPost = useCallback(async (id) => {
     try {
       const res = await deletePost(id);
       if (res.status === 200) {
@@ -45,10 +46,29 @@ export default function Posts() {
     },
     [deleteSelectedPost]
   );
+  const updateSelectedPost = useCallback(async (currentData) => {
+    try {
+      console.log("update clicked", currentData);
+      setUpdateDataAPI(currentData);
+    } catch (error) {
+      console.error(error);
+    }
+  }, []);
+  const handleUpdatePost = useCallback(
+    (currentData) => () => {
+      updateSelectedPost(currentData);
+    },
+    []
+  );
   return (
     <div className=" container mx-auto p-4 ">
       <section>
-        <Form data={data} setData={setData} />
+        <Form
+          data={data}
+          setData={setData}
+          updateDataAPI={updateDataAPI}
+          setUpdateDataAPI={setUpdateDataAPI}
+        />
       </section>
 
       <ul className="list-decimal list-inside space-y-2">
@@ -61,7 +81,7 @@ export default function Posts() {
               <p>
                 <span>Post</span> : {currentData.body}
               </p>
-              <button>Edit</button>
+              <button onClick={handleUpdatePost(currentData)}>Edit</button>
               <button onClick={handleDeletePost(currentData.id)}>Delete</button>
             </li>
           );

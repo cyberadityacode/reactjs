@@ -1,11 +1,28 @@
-import React, { useState } from "react";
-import { addPost } from "../api/PostAPI";
+import React, { useEffect, useState } from "react";
+import { addPost, updatePost } from "../api/PostAPI";
 
-export default function Form({ data, setData }) {
+export default function Form({
+  data,
+  setData,
+  updateDataAPI,
+  setUpdateDataAPI,
+}) {
   const [formData, setFormData] = useState({
     title: "",
     body: "",
   });
+
+  let isEmpty = Object.keys(updateDataAPI).length === 0;
+
+  //   get the updated Data and add into input field.
+
+  useEffect(() => {
+    updateDataAPI &&
+      setFormData({
+        title: updateDataAPI.title || "",
+        body: updateDataAPI.body || "",
+      });
+  }, [updateDataAPI]);
 
   const handleInputChange = (e) => {
     const name = e.target.name;
@@ -28,16 +45,50 @@ export default function Form({ data, setData }) {
           title: "",
           body: "",
         });
+        
       }
     } catch (error) {
       console.error(error);
     }
   };
+  //updatePostData
+
+  const updatePostData = async () => {
+    try {
+      const res = await updatePost(updateDataAPI.id, formData);
+      console.log("update response from server: ", res);
+
+      if (res.status === 200) {
+        setData((prev) => {
+          return prev.map((currEl) => {
+            return currEl.id === res.data.id ? res.data : currEl;
+          });
+        });
+
+        setFormData({
+          title: "",
+          body: "",
+        });
+        setUpdateDataAPI({})
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  //   form submission
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    console.log("Form Submitted", formData);
-    //apply validation if you want
-    addPostData();
+
+    const action = e.nativeEvent.submitter.value;
+    if (action === "Add") {
+      console.log("Form Submitted", formData);
+      //apply validation if you want
+      addPostData();
+    } else if (action === "Edit") {
+      console.log("Data Updated Successfully!");
+      updatePostData();
+    }
   };
   return (
     <form onSubmit={handleFormSubmit}>
@@ -58,8 +109,12 @@ export default function Form({ data, setData }) {
           value={formData.body}
           onChange={handleInputChange}
         />
-        <button type="submit" className="border p-3 mx-2">
-          Post
+        <button
+          value={isEmpty ? "Add " : "Edit"}
+          type="submit"
+          className="border p-3 mx-2"
+        >
+          {isEmpty ? "Add " : "Edit"}
         </button>
       </div>
     </form>
