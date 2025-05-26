@@ -1,9 +1,8 @@
 import React from 'react'
+import Accordian from './components/Accordian'
 
 export default function App() {
   return (
-    <div >
-      <h1 className='text-2xl'>Accordian in React19</h1>
-    </div>
+   <Accordian />
   )
 }
