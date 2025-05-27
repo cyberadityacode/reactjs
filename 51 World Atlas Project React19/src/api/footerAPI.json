@@ -1,0 +1,17 @@
+[
+  {
+    "icon": "MdPlace",
+    "title": "Find us",
+    "details": "Jabalpur, MP, India"
+  },
+  {
+    "icon": "IoCallSharp",
+    "title": "Call us",
+    "details": "+91-6264599267"
+  },
+  {
+    "icon": "TbMailPlus",
+    "title": "Mail us",
+    "details": "adityadubey793@gmail.com"
+  }
+]
