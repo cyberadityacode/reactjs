@@ -1,5 +1,7 @@
 # World Atlas Project React 19 
 
+Live Demo: cyberadityaworldatlas.netlify.app
+
 ## Dependencies
 ```json
  "dependencies": {
@@ -44,5 +46,15 @@ React 19 form is easy -> add action attribute to your form link to a function ha
 Object.formEntries(formData.entries()) - converts iterable to key value pairs
 
 Step 15 - Complete Footer
+
+Step 16 - Start working on rest country api create postApi.jsx in src/api
+
+Step 17 - Create api instance and declare http get method for the same.
+
+Step 18 - call get method from Country page.
+
+useTransition state - allows you to update state without blocking the UI
+
+
 
 
