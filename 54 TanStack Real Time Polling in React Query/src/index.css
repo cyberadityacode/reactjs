@@ -1,0 +1,19 @@
+@import "tailwindcss";
+
+@layer components{
+    .navigation-bar{
+        @apply text-2xl flex gap-1 items-center justify-between mx-3 mt-5 mb-10;
+    }
+
+    .logo{
+        @apply font-semibold;
+    }
+
+    .navigation-bar ul{
+        @apply flex gap-3;
+    }
+
+    .navigation-bar ul li{
+        @apply hover:text-gray-700;
+    }
+}
