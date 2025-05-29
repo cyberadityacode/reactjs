@@ -28,9 +28,10 @@ const router = createBrowserRouter([
 ])
 
 export default function App() {
-  const queryClient = new QueryClient()
+  const query = new QueryClient()
+
   return (
-    <QueryClientProvider client={queryClient}>
+    <QueryClientProvider client={query}>
       <RouterProvider router={router}></RouterProvider>
       <ReactQueryDevtools initialIsOpen={false}></ReactQueryDevtools>
     </QueryClientProvider>
