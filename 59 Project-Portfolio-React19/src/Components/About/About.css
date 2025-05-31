@@ -27,6 +27,14 @@
   display: flex;
   gap: 60px;
 }
+.about-left img{
+  width: 350px;
+  border-radius: 10px;
+  border: 2px solid white;
+}
+.about-left img:hover{
+  border: 2px solid #b415ff;
+}
 .about-right {
   display: flex;
   flex-direction: column;

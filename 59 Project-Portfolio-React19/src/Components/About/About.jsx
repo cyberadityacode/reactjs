@@ -2,6 +2,7 @@ import React from "react";
 import "./About.css";
 import theme_pattern from "../../assets/theme_pattern.svg";
 import profile_img from "../../assets/about_profile.svg";
+import adityadubeydc from "../../assets/adityadubeydc.jpg";
 
 export default function About() {
   return (
@@ -12,7 +13,8 @@ export default function About() {
       </div>
       <div className="about-section">
         <div className="about-left">
-          <img src={profile_img} alt="" />
+          {/* <img src={profile_img} alt="" /> */}
+          <img src={adityadubeydc} alt="" />
         </div>
         <div className="about-right">
           <div className="about-para">
@@ -51,7 +53,7 @@ export default function About() {
       </div>
       <div className="about-achievements">
         <div className="about-achievement">
-          <h1>10+</h1>
+          <h1>7+</h1>
           <p>YEARS OF EXPERIENCE</p>
         </div>
         <hr />

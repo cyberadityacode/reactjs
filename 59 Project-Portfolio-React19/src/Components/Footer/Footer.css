@@ -1,3 +1,17 @@
+.logo {
+  position: relative;
+  margin-bottom: 10px;
+}
+.logo img {
+  position: absolute;
+  width: 100px;
+  height: 20px;
+  bottom: 0;
+  right: 280px;
+  top: 25px;
+  z-index: -1;
+}
+
 .footer {
   margin: 50px 70px;
   display: flex;
