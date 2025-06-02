@@ -1,0 +1,77 @@
+section h1 {
+  text-align: center;
+  text-decoration: underline;
+}
+
+.parent-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  margin: 20px;
+}
+
+.input-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.input-controls form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.input-controls form input {
+  padding: 10px;
+  font-size: 20px;
+}
+.input-controls form button {
+  padding: 15px;
+  font-size: large;
+  font-weight: 600;
+}
+
+.search-items input {
+  padding: 10px;
+  width: 400px;
+}
+
+.list-items {
+  font-size: 25px;
+  background-color: antiquewhite;
+  padding: 20px;
+  width: 400px;
+  height: 200px;
+  overflow-y: auto;
+}
+.list-items ol {
+  counter-reset: list-counter;
+  padding-left: 0;
+  margin-left: 0;
+}
+.list-items ol li {
+  counter-increment: list-counter;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  position: relative;
+  padding-left: 30px; /* space for the number */
+  margin-bottom: 10px;
+}
+
+.list-items ol li::before {
+  content: counter(list-counter) ".";
+  position: absolute;
+  left: 0;
+  font-weight: bold;
+}
+
+.list-items ol li button {
+  display: flex;
+  align-items: center;
+  /* all: unset; */
+  margin: 0 5px;
+  height: 45px;
+}
