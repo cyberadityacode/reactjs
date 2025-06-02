@@ -33,3 +33,5 @@ Keeps JSX clean.
 
 5. User Experience
 Reset button, dynamic inputs, and responsive design through basic styling.
+
+## Added ContextAPI with custom warning message on unwrapped component
