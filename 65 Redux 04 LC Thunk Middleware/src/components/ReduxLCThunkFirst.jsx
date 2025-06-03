@@ -1,8 +1,17 @@
-import React, { useState } from "react";
-import { fetchTask } from "../../store";
+import React, { useEffect, useState } from "react";
+
 import { useDispatch, useSelector } from "react-redux";
+import { fetchTasks } from "../redux/actions/taskActions";
 
 export default function ReduxLCThunkFirst() {
+  const dispatch = useDispatch();
+
+  const { loading, tasks, error } = useSelector((state) => state.tasks);
+
+  useEffect(() => {
+    dispatch(fetchTasks());
+  }, [dispatch]);
+
   return (
     <section>
       <h1>Redux Legacy Code Thunk First</h1>
@@ -15,19 +24,12 @@ export default function ReduxLCThunkFirst() {
           <button>Fetch Data</button>
         </div>
         <div className="list-task">
+          {loading && <li>Loading...</li>}
+          {error && <li>Some Error {error}...</li>}
           <ol>
-            <li>
-              <p>0- Buy Banana</p>
-              <button>Delete</button>
-            </li>
-            <li>
-              <p>1- Buy Mango</p>
-              <button>Delete</button>
-            </li>
-            <li>
-              <p>2- Buy Muskmelon</p>
-              <button>Delete</button>
-            </li>
+            {tasks.map((task, index) => (
+              <li key={index}>{task}</li>
+            ))}
           </ol>
         </div>
       </div>
