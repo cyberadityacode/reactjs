@@ -26,3 +26,11 @@ Handling async tasks, like fetching data. Is much simpler with RTK `createAsyncT
 
 - **Great Default**
 RTK sets up ReduxDevTools, middleware, and other configuration for you, so you can focus on building your app.
+
+# Steps to Create First RTK App
+
+1. Install redux toolkit
+```
+bun install install @reduxjs/toolkit
+bun install react-redux
+```
