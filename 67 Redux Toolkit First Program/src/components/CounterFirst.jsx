@@ -4,6 +4,7 @@ import {
   decrement,
   increment,
   incrementByAmount,
+  reset,
 } from "../features/counter/counterSlice";
 
 export default function CounterFirst() {
@@ -27,6 +28,7 @@ export default function CounterFirst() {
       <button onClick={() => dispatch(incrementByAmount(amount))}>
         Increment by {amount}
       </button>
+      <button onClick={() => dispatch(reset())}>Reset</button>
     </div>
   );
 }
