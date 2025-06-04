@@ -64,7 +64,7 @@ src/app/store.jsx
 
 ## Outcome
 
-Your app now:
+App now:
 
 - Fetches todos from API
 - Adds, toggles, deletes todos locally
