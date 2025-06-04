@@ -34,3 +34,14 @@ RTK sets up ReduxDevTools, middleware, and other configuration for you, so you c
 bun install install @reduxjs/toolkit
 bun install react-redux
 ```
+
+2. Create a Redux Slice
+features/counter/counterSlice.js:
+
+3. Set Up the Store
+app/store.js:
+
+4. Provide Redux store to your App component.
+
+5. Use Redux State and Actions in a Component
+ use Redux state and dispatch actions in MyComponent.js:
