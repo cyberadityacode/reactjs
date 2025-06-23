@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from "react";
-import cities from "../data/in.json"; // adjust path accordingly
+import cities from "../data/in.json"; // make sure path is correct
+import IndianAstrology from "indian-astrology";
+import { GoogleGenAI } from "@google/genai";
+
+// Initialize Gemini AI
+const ai = new GoogleGenAI({
+  apiKey: "AIzaSyDUKoXd4PEaJ_iY8e3ZOwFN1fTkiQ9vpyk", // Replace with secure method in production
+});
 
 export default function KundaliForm() {
   const [formData, setFormData] = useState({
@@ -13,13 +20,14 @@ export default function KundaliForm() {
 
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredCities, setFilteredCities] = useState([]);
+  const [prediction, setPrediction] = useState("");
 
   useEffect(() => {
     if (searchTerm.length > 1) {
       const filtered = cities.filter((city) =>
         city.city.toLowerCase().startsWith(searchTerm.toLowerCase())
       );
-      setFilteredCities(filtered.slice(0, 5)); // limit to top 5 suggestions
+      setFilteredCities(filtered.slice(0, 5));
     } else {
       setFilteredCities([]);
     }
@@ -47,7 +55,6 @@ export default function KundaliForm() {
   const handleKundaliSubmit = (e) => {
     e.preventDefault();
     console.log("Form Submitted:", formData);
-    // send formData to backend API
 
     fetch("http://localhost/php/kundali/kundali.php", {
       method: "POST",
@@ -57,13 +64,47 @@ export default function KundaliForm() {
       .then((res) => res.json())
       .then((data) => {
         console.log("Kundali Data:", data);
-        // You can format and display it
       })
       .catch((err) => console.error(err));
   };
 
+  const handlePrediction = async () => {
+    if (!formData.date || !formData.tob) {
+      alert("Please fill in Date of Birth and Time of Birth before prediction.");
+      return;
+    }
+
+    const [year, month, day] = formData.date.split("-").map(Number);
+    const [hour, minute] = formData.tob.split(":").map(Number);
+
+    // Get moonDetails from IndianAstrology
+    const moonDetails = IndianAstrology.getByDate(
+      day,
+      month,
+      year,
+      hour,
+      minute,
+      5,
+      30,
+      false
+    );
+
+    try {
+      const response = await ai.models.generateContent({
+        model: "gemini-2.5-flash",
+        contents: `Act as an astrologer, what's your prediction for the native whose moon rashi is ${moonDetails.zodiacSign}, dasha is ${moonDetails.currentDasha}, and nakshatra is ${moonDetails.nakshatra}. Answer in json format.`,
+      });
+
+      console.log("Prediction:", response.text);
+      setPrediction(response.text);
+    } catch (error) {
+      console.error("Error generating prediction:", error);
+      alert("Failed to generate prediction.");
+    }
+  };
+
   return (
-    <div>
+    <div style={{ maxWidth: "500px", margin: "auto" }}>
       <h1>Kundali Form</h1>
       <form onSubmit={handleKundaliSubmit}>
         <div>
@@ -133,8 +174,31 @@ export default function KundaliForm() {
             </ul>
           )}
         </div>
-        <button type="submit">Create Kundali</button>
+        <button type="submit" style={{ marginTop: "10px" }}>
+          Create Kundali
+        </button>
       </form>
+
+      <button
+        onClick={handlePrediction}
+        style={{ marginTop: "10px", backgroundColor: "#444", color: "white" }}
+      >
+        Generate Prediction
+      </button>
+
+      {prediction && (
+        <div
+          style={{
+            marginTop: "20px",
+            padding: "10px",
+            border: "1px solid #ccc",
+            whiteSpace: "pre-wrap",
+          }}
+        >
+          <h3>Prediction:</h3>
+          <p>{prediction}</p>
+        </div>
+      )}
     </div>
   );
 }
