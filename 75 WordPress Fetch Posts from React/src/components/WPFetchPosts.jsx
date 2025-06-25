@@ -51,6 +51,11 @@ export default function WPFetchPosts() {
                 alt=""
               />
             )}
+
+            {/* <h2>{post?.title.rendered}</h2> */}
+            <h2 dangerouslySetInnerHTML={{ __html: post?.title?.rendered }} />
+            <span dangerouslySetInnerHTML={{ __html: post?.date }} />
+            <p dangerouslySetInnerHTML={{ __html: post?.excerpt?.rendered }}/>
           </div>
         );
       })}
