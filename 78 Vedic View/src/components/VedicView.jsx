@@ -11,6 +11,8 @@ export default function VedicView() {
     hour: "",
     minute: "",
     ampm: "",
+    contact: "",
+    concern: "",
   });
 
   const [successMessage, setSuccessMessage] = useState("");
@@ -19,6 +21,7 @@ export default function VedicView() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  // https://script.google.com/macros/s/AKfycbx46fsSseHEMV9uwjwWRZcqfZ6qpoyaw1YQu5TaZ7hmqRuOtpdCQDCQZHWO_l8NxKX8/exec
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -33,20 +36,17 @@ export default function VedicView() {
 
     try {
       await fetch(
-        "https://script.google.com/macros/s/AKfycbxWVea395fuvnMaOFG_wZmQSuRSR40QeDrSoU_aTYSS-RfnNuoI-InJ1ZWk_qhMpuXM5g/exec",
+        "https://script.google.com/macros/s/AKfycbxKfT5t6Q9vH6FeTijl5I5bAH9NWRQqTtmxA_q6xso9CRVAGuNmL5Xwx-R3JlQDo7Q/exec",
         {
           method: "POST",
-          mode: "no-cors",
           headers: { "Content-Type": "application/x-www-form-urlencoded" },
-          body: new URLSearchParams({
-            name: formData.name,
-            dob: formattedDob,
-            tob: formattedTob,
-            gender: formData.gender,
-            place: formData.place,
-          }),
+          body: `name=${formData.name}&dob=${formattedDob}&tob=${formattedTob}&gender=${formData.gender}&place=${formData.place}&contact=${formData.contact}&concern=${formData.concern}`,
         }
-      );
+      )
+        .then((res) => res.text())
+        .then((data) => {
+          alert(data);
+        });
 
       setSuccessMessage("✅ Your details have been successfully submitted!");
 
@@ -196,6 +196,37 @@ export default function VedicView() {
               onChange={handleChange}
               required
               placeholder="e.g., Jabalpur, MP"
+              className="mt-1 block w-full border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-indigo-400 focus:outline-none"
+            />
+          </div>
+
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700">
+              Contact
+            </label>
+            <input
+              type="number"
+              name="contact"
+              value={formData.contact}
+              onChange={handleChange}
+              required
+              placeholder="Enter your Contact Number"
+              className="mt-1 block w-full border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-indigo-400 focus:outline-none"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700">
+              Concern
+            </label>
+            <input
+              type="text"
+              name="concern"
+              value={formData.concern}
+              onChange={handleChange}
+              required
+              placeholder="What is your concern?"
               className="mt-1 block w-full border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-indigo-400 focus:outline-none"
             />
           </div>
