@@ -3,7 +3,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 export default function VedicView() {
-  const [dob, setDob] = useState(null); // Separate state for react-datepicker
+  const [dob, setDob] = useState(null);
   const [formData, setFormData] = useState({
     name: "",
     gender: "",
@@ -16,14 +16,15 @@ export default function VedicView() {
   });
 
   const [successMessage, setSuccessMessage] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // https://script.google.com/macros/s/AKfycbx46fsSseHEMV9uwjwWRZcqfZ6qpoyaw1YQu5TaZ7hmqRuOtpdCQDCQZHWO_l8NxKX8/exec
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     const formattedDob = dob
       ? `${dob.getFullYear()}-${String(dob.getMonth() + 1).padStart(
@@ -59,10 +60,14 @@ export default function VedicView() {
         hour: "",
         minute: "",
         ampm: "",
+        contact: "",
+        concern: "",
       });
     } catch (error) {
       console.error("Error submitting to Google Sheet:", error);
       setSuccessMessage("❌ Submission failed. Please try again.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -200,7 +205,6 @@ export default function VedicView() {
             />
           </div>
 
-
           <div>
             <label className="block text-sm font-medium text-gray-700">
               Contact
@@ -233,9 +237,38 @@ export default function VedicView() {
 
           <button
             type="submit"
-            className="w-full bg-indigo-600 text-white font-semibold p-2 rounded-lg hover:bg-indigo-700 transition duration-200"
+            disabled={loading}
+            className={`w-full ${
+              loading ? "bg-gray-400 cursor-not-allowed" : "bg-indigo-600 hover:bg-indigo-700"
+            } text-white font-semibold p-2 rounded-lg transition duration-200 flex justify-center items-center`}
           >
-            Submit Details
+            {loading ? (
+              <div className="flex items-center space-x-2">
+                <svg
+                  className="animate-spin h-5 w-5 text-white"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <circle
+                    className="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    strokeWidth="4"
+                  />
+                  <path
+                    className="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8v8H4z"
+                  />
+                </svg>
+                <span>Submitting...</span>
+              </div>
+            ) : (
+              "Submit Details"
+            )}
           </button>
         </form>
       </div>
