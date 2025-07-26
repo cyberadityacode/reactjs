@@ -1,12 +1,8 @@
-You're doing a great job building this chat app! Let's walk through what this code is doing, step by step, in the simplest way possible — as if I were your mentor explaining it to a beginner.
-
----
-
-## 🔷 `App.jsx` – Entry Point of the App
+## `App.jsx` – Entry Point of the App
 
 This is your main app file that:
 
-### ✅ 1. **Manages which user is active**
+###  1. **Manages which user is active**
 
 * You're simulating a **two-user chat** by toggling between `user1` and `user2`.
 * `userId` is stored in state and changes when you click the **"Switch User"** button.
@@ -25,13 +21,13 @@ You pass this `userId` to the `ChatRoom` component to show messages from that us
 
 ---
 
-## 🔷 `ChatRoom.jsx` – Handles the Messaging
+##  `ChatRoom.jsx` – Handles the Messaging
 
 This is the actual chat screen where messages are sent and received. Here's what it does:
 
 ---
 
-### ✅ 1. **Loads messages in real-time**
+###  1. **Loads messages in real-time**
 
 ```js
 useEffect(() => {
@@ -52,7 +48,7 @@ useEffect(() => {
 
 ---
 
-### ✅ 2. **Tracks who is typing**
+### 2. **Tracks who is typing**
 
 ```js
 useEffect(() => {
@@ -77,7 +73,7 @@ useEffect(() => {
 
 ---
 
-### ✅ 3. **Updates typing status when typing**
+###  3. **Updates typing status when typing**
 
 ```js
 const handleInputChange = (e) => {
@@ -99,7 +95,7 @@ const handleInputChange = (e) => {
 
 ---
 
-### ✅ 4. **Sends messages to Firestore**
+###  4. **Sends messages to Firestore**
 
 ```js
 await addDoc(collection(db, "chats", chatId, "messages"), {
@@ -120,7 +116,7 @@ await addDoc(collection(db, "chats", chatId, "messages"), {
 
 ---
 
-### ✅ 5. **UI Behavior**
+###  5. **UI Behavior**
 
 ```jsx
 {messages.map((msg) => (
@@ -137,7 +133,7 @@ await addDoc(collection(db, "chats", chatId, "messages"), {
 
 ---
 
-## 🔷 Firebase Firestore Structure (Schema)
+##  Firebase Firestore Structure (Schema)
 
 To support this code, your Firestore should be structured like this:
 
@@ -159,7 +155,7 @@ chats (collection)
 
 ---
 
-## ✅ Summary (as your mentor)
+##  Summary (as your mentor)
 
 You're building a solid real-time 2-way chat:
 
@@ -172,7 +168,7 @@ You're building a solid real-time 2-way chat:
 
 ---
 
-## 🔜 What's Next?
+##  What's Next?
 
 Here’s what you can add next:
 
