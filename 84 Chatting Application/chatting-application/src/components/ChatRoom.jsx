@@ -27,8 +27,18 @@ const ChatRoom = ({ chatId, currentUserId }) => {
       collection(db, "chats", chatId, "messages"),
       orderBy("timestamp", "asc")
     );
+
+    console.log("structure of the query: ", q);
+
     const unsubscribe = onSnapshot(q, (snapshot) => {
-      setMessages(snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
+      const messages = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+
+      console.log("Collection of All Messages: ", messages);
+
+      setMessages(messages);
     });
     return () => unsubscribe();
   }, [chatId]);

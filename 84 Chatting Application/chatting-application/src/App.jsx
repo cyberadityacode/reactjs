@@ -13,7 +13,7 @@ const App = () => {
   };
 
   const divStyle = {
-    backgroundColor: currentOn === "On" ? "gray" : "white",
+    backgroundColor: currentOn === "On" ? "black" : "white",
   };
 
   return (
