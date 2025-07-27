@@ -10,22 +10,22 @@ React shows you a live indicator like WhatsApp or Messenger.
 
 ---
 
-###  Imagine This App is a Party Hall
+### Imagine This App is a Party Hall
 
-* You have **two friends**: `Aditya` and `Pramod`.
-* Each friend can walk into or leave the party (the app).
-* You want to **see if your friend is in the party** (online) or not (offline).
-* And when they leave, they should **automatically be marked as gone**, even if they suddenly vanish (close tab, crash, etc.)
+- You have **two friends**: `Aditya` and `Pramod`.
+- Each friend can walk into or leave the party (the app).
+- You want to **see if your friend is in the party** (online) or not (offline).
+- And when they leave, they should **automatically be marked as gone**, even if they suddenly vanish (close tab, crash, etc.)
 
 ---
 
-###  Code Explained with Real-World Metaphors
+### Code Explained with Real-World Metaphors
 
 ```js
 const otherUserId = currentUserid === "aditya" ? "pramod" : "aditya";
 ```
 
- *"If I'm Aditya, then the other person must be Pramod. If I'm Pramod, the other person is Aditya."*
+_"If I'm Aditya, then the other person must be Pramod. If I'm Pramod, the other person is Aditya."_
 This lets you **see your friend’s status**.
 
 ---
@@ -34,22 +34,22 @@ This lets you **see your friend’s status**.
 const [otherUserStatus, setOtherUserStatus] = useState("offline");
 ```
 
- *"Let me keep a note of my friend’s current status — either 'online' or 'offline'."*
+_"Let me keep a note of my friend’s current status — either 'online' or 'offline'."_
 (React state to store what your friend is doing.)
 
 ---
 
-###  useEffect 1 – Tell the World “I’m Here!”
+### useEffect 1 – Tell the World “I’m Here!”
 
 ```js
 const userStatusRef = ref(db, `/status/${currentUserid}`);
 const connectedRef = ref(db, ".info/connected");
 ```
 
-*Setting up two things:*
+_Setting up two things:_
 
-* `userStatusRef`: where your name is written on the guestlist
-* `connectedRef`: Firebase’s **heartbeat monitor** — it tells if you're connected or not.
+- `userStatusRef`: where your name is written on the guestlist
+- `connectedRef`: Firebase’s **heartbeat monitor** — it tells if you're connected or not.
 
 ---
 
@@ -62,14 +62,14 @@ onValue(connectedRef, (snap) => {
 });
 ```
 
- *"If I’m truly connected to the internet..."*
+_"If I’m truly connected to the internet..."_
 
-*  `onDisconnect(...).set("offline")`:
+- `onDisconnect(...).set("offline")`:
   Think of this like **leaving a note on the door**:
-  *“If I vanish suddenly (e.g., close the tab), please mark me as offline.”*
+  _“If I vanish suddenly (e.g., close the tab), please mark me as offline.”_
 
-*  `set(userStatusRef, "online")`:
-  *"Since I’m here now, mark me online on the guest list!"*
+- `set(userStatusRef, "online")`:
+  _"Since I’m here now, mark me online on the guest list!"_
 
 ---
 
@@ -79,18 +79,18 @@ return () => {
 };
 ```
 
- *"If I quietly leave the app (component unmounts), also mark me offline."*
+_"If I quietly leave the app (component unmounts), also mark me offline."_
 So, even if you leave gently, it updates your status.
 
 ---
 
-###  useEffect 2 – Watch What My Friend is Doing
+### useEffect 2 – Watch What My Friend is Doing
 
 ```js
 const otherStatusRef = ref(db, `/status/${otherUserId}`);
 ```
 
- *"Let me look at my friend's name in the guest list..."*
+_"Let me look at my friend's name in the guest list..."_
 
 ---
 
@@ -100,24 +100,33 @@ onValue(otherStatusRef, (snap) => {
 });
 ```
 
-*"Any time their status changes (online/offline), let me know and I’ll update what I display."*
+_"Any time their status changes (online/offline), let me know and I’ll update what I display."_
 This is **live listening** — like having a spy checking the door every second.
 
 ---
 
-###  UI – Showing the Friend’s Status
+### UI – Showing the Friend’s Status
 
 ```js
 <h3>
-  {otherUserId} is: 
+  {otherUserId} is:
   <span style={{ color: otherUserStatus === "online" ? "green" : "red" }}>
     {otherUserStatus}
   </span>
 </h3>
 ```
 
- *"Let me show clearly whether my friend is in the party (green = online) or not (red = offline)."*
-
-
+_"Let me show clearly whether my friend is in the party (green = online) or not (red = offline)."_
 
 ---
+
+How It Works
+useRef stores the previous status (offline by default).
+
+When pramod goes from offline ➝ online:
+
+It plays a ping sound.
+
+Updates document.title to show he's online.
+
+After 5 seconds, resets the tab title.

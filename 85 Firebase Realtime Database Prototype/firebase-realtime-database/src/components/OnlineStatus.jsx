@@ -1,10 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { db } from "../firebase";
 import { onDisconnect, onValue, ref, set } from "firebase/database";
 
 export default function OnlineStatus({ currentUserid }) {
   const otherUserId = currentUserid === "aditya" ? "pramod" : "aditya";
   const [otherUserStatus, setOtherUserStatus] = useState("offline");
+
+  const prevStatusRef = useRef("offline");
+  const originalTitle = useRef(document.title);
+
+  //   sount setup
+
+  const pingAudio = useRef(new Audio("./that-was-quick-606.mp3"));
 
   useEffect(() => {
     const userStatusRef = ref(db, `/status/${currentUserid}`);
@@ -22,17 +29,35 @@ export default function OnlineStatus({ currentUserid }) {
       }
     });
 
-    return () => {
-      // set offline on unmount
-
-      set(userStatusRef, "offline");
-    };
+    return () => {};
   }, [currentUserid]);
 
   useEffect(() => {
     const otherStatusRef = ref(db, `/status/${otherUserId}`);
     const unsubscribe = onValue(otherStatusRef, (snap) => {
-      setOtherUserStatus(snap.val() || "offline");
+      const newStatus = snap.val() || "offline";
+
+      setOtherUserStatus(newStatus);
+
+      // If status changes from offline ➝ online
+
+      if (prevStatusRef.current === "offline" && newStatus === "online") {
+        // 1 . play sound
+        pingAudio.current.play();
+
+        // 2. Update tab Title
+        document.title = `${otherUserId} is online!`;
+
+        // 3. Reset title after 5 seconds
+
+        setTimeout(() => {
+          document.title = originalTitle.current;
+        }, 5000);
+      }
+
+      // Store current status for next comparison
+
+      prevStatusRef.current = newStatus;
     });
 
     return () => unsubscribe();
