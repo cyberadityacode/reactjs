@@ -9,8 +9,12 @@ import {
   updateDoc,
   getDoc,
   setDoc,
+  serverTimestamp,
 } from "firebase/firestore";
 import { db } from "../firebase"; // Adjust path as needed
+import { formatDistanceToNow } from "date-fns";
+import usePresence from "../hooks/usePresence";
+import useUserStatus from "../hooks/useUserStatus";
 
 const ChatRoom = ({ chatId, currentUserId }) => {
   const [messages, setMessages] = useState([]);
@@ -18,8 +22,12 @@ const ChatRoom = ({ chatId, currentUserId }) => {
   const [typing, setTyping] = useState({});
   const inputRef = useRef(null);
   const typingTimeoutRef = useRef(null);
+  const [lastSeen, setLastSeen] = useState(null);
 
   const targetUserId = currentUserId === "user1" ? "user2" : "user1";
+  const isOnline = useUserStatus(targetUserId);
+  //Track current user presence
+  usePresence(currentUserId);
 
   // Fetch messages in real-time
   useEffect(() => {
@@ -43,6 +51,23 @@ const ChatRoom = ({ chatId, currentUserId }) => {
     return () => unsubscribe();
   }, [chatId]);
 
+  // useEffect for Last Seen
+  // ✅ Track target user online status (RTDB)
+ 
+
+  // ✅ Get target user's lastSeen (Firestore)
+  useEffect(() => {
+    const targetDocRef = doc(db, "users", targetUserId);
+    const unsubscribe = onSnapshot(targetDocRef, (docSnap) => {
+      const data = docSnap.data();
+      if (data?.lastSeen) {
+        setLastSeen(data.lastSeen.toDate());
+      }
+    });
+
+    return () => unsubscribe();
+  }, [targetUserId]);
+
   // Listen for typing indicator
   useEffect(() => {
     const chatDocRef = doc(db, "chats", chatId);
@@ -64,7 +89,11 @@ const ChatRoom = ({ chatId, currentUserId }) => {
   // Update typing status
   const updateTypingStatus = async (isTyping) => {
     const chatDocRef = doc(db, "chats", chatId);
+
+    console.log("chatDocRef contains this: ", chatDocRef);
     const docSnap = await getDoc(chatDocRef);
+
+    console.log("docSnap contains this: ", docSnap);
 
     if (!docSnap.exists()) {
       await setDoc(chatDocRef, {
@@ -125,6 +154,13 @@ const ChatRoom = ({ chatId, currentUserId }) => {
         {typing[targetUserId] && (
           <div className="typing-indicator">{targetUserId} is typing...</div>
         )}
+
+        <div>
+          Status:{" "}
+          {isOnline
+            ? "🟢 Online"
+            : `⚫️ Last seen at ${lastSeen?.toLocaleString()}`}
+        </div>
       </div>
       <div className="input-area">
         <input

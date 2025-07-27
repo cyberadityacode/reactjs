@@ -174,3 +174,8 @@ This `useEffect`:
 ---
 
 
+To display online status and last seen without polling, the best approach is a hybrid:
+
+Use Firebase Realtime Database (RTDB) for real-time online status tracking (because RTDB supports onDisconnect() natively).
+
+Use Firestore for storing persistent lastSeen timestamps, updated only once when the user disconnects.
