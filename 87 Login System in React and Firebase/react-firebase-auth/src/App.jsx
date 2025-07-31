@@ -4,6 +4,7 @@ import Login from "./pages/Login";
 import ChatRoom from "./pages/ChatRoom";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "./firebase";
+import { setUserOnlineStatus } from "./utils/setUserOnlineStatus";
 
 export default function App() {
   const [user, setUser] = useState(null);
@@ -14,6 +15,10 @@ export default function App() {
     const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
       setUser(firebaseUser);
       setAuthChecked(true);
+
+      if (firebaseUser) {
+        setUserOnlineStatus(firebaseUser);
+      }
     });
     return () => unsubscribe();
   }, []);

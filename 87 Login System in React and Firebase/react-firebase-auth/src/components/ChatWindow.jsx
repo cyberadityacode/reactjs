@@ -19,6 +19,7 @@ function generateChatId(uid1, uid2) {
 export default function ChatWindow({ currentUser, selectedUser }) {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
+  const [unreadMsg, setUnreadMsg] = useState(0);
   const messagesEndRef = useRef(null);
 
   const chatId = generateChatId(currentUser.uid, selectedUser.uid);
@@ -77,9 +78,19 @@ export default function ChatWindow({ currentUser, selectedUser }) {
     setNewMessage("");
   };
 
+  useEffect(() => {
+    console.log(messages);
+
+    const unreadMessages = messages.filter((unread) => unread.isRead === false);
+    console.log(unreadMessages);
+    setUnreadMsg(unreadMessages.length);
+  }, [messages]);
+
   return (
     <div style={{ border: "1px solid gray", padding: "1rem" }}>
-      <h3>Chatting with {selectedUser.username}</h3>
+      <h3>
+        Chatting with {selectedUser.username} - Total Chats - {messages.length} - Unread Count - {unreadMsg}
+      </h3>
       <div style={{ maxHeight: "300px", overflowY: "auto" }}>
         {messages.map((msg, idx) => (
           <p

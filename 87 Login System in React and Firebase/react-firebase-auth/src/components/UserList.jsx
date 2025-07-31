@@ -1,16 +1,20 @@
-import { collection, onSnapshot, query, where } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
+import { collection, onSnapshot, query, where } from "firebase/firestore";
+import { onValue, ref, off } from "firebase/database";
 import { db, rtdb } from "../firebase";
-import { onValue, ref, off } from "firebase/database"; // added `off`
 
 export default function UserList({ currentUser, onSelectUser }) {
   const [users, setUsers] = useState([]);
   const [onlineStatus, setOnlineStatus] = useState({});
   const [unreadCounts, setUnreadCounts] = useState({});
+  const [totalCounts, setTotalCounts] = useState({});
 
   useEffect(() => {
+    if (!currentUser?.uid) return;
+
     const statusRefs = [];
 
+    // Load users and set their status listeners
     const unsubUsers = onSnapshot(collection(db, "users"), (snapshot) => {
       const userList = snapshot.docs
         .map((doc) => doc.data())
@@ -18,10 +22,11 @@ export default function UserList({ currentUser, onSelectUser }) {
 
       setUsers(userList);
 
-      // Track online/offline status
+      // Setup RTDB listeners for online status
       userList.forEach((user) => {
         const statusRef = ref(rtdb, `status/${user.uid}`);
-        statusRefs.push(statusRef); // store for cleanup
+        statusRefs.push(statusRef);
+
         onValue(statusRef, (snapshot) => {
           setOnlineStatus((prev) => ({
             ...prev,
@@ -31,36 +36,42 @@ export default function UserList({ currentUser, onSelectUser }) {
       });
     });
 
-    // Unread messages listener
-    const unsubMessages = onSnapshot(
-      query(
-        collection(db, "messages"),
-        where("receiverId", "==", currentUser.uid),
-        where("isRead", "==", false)
-      ),
-      (snapshot) => {
-        console.log("Unread snapshot size:", snapshot.size); // <-- add this
-        const unread = {};
-        snapshot.docs.forEach((doc) => {
-          const data = doc.data();
-          console.log("Unread message from:", data.senderId); // <-- log here
-          const sender = data.senderId;
-          unread[sender] = (unread[sender] || 0) + 1;
-        });
-        setUnreadCounts(unread);
-      }
+    // Firestore listener to unread messages
+    const messagesQuery = query(
+      collection(db, "messages"),
+      where("receiverId", "==", currentUser.uid),
+      where("isRead", "==", false)
     );
 
+    const unsubMessages = onSnapshot(messagesQuery, (snapshot) => {
+      console.log("Unread messages snapshot size:", snapshot.size);
+      const unreadMap = {};
+
+      snapshot.docs.forEach((doc) => {
+        const data = doc.data();
+        console.log("Message doc:", data);
+        const senderId = data.senderId;
+
+        if (senderId) {
+          unreadMap[senderId] = (unreadMap[senderId] || 0) + 1;
+        } else {
+          console.warn("Missing senderId in message:", doc.id, data);
+        }
+      });
+
+      setUnreadCounts(unreadMap);
+    });
+
     return () => {
-      statusRefs.forEach((refItem) => off(refItem)); //  cleanup RTDB listeners
+      statusRefs.forEach((statusRef) => off(statusRef));
       unsubUsers();
       unsubMessages();
     };
-  }, [currentUser.uid]); //  safe to use currentUser.uid as dependency
+  }, [currentUser.uid]);
 
   return (
     <div>
-      <h2>Users List</h2>
+      <h2>Users List - Total Users: {users.length}</h2>
       <ul>
         {users.map((user) => {
           const status = onlineStatus[user.uid];
@@ -71,12 +82,32 @@ export default function UserList({ currentUser, onSelectUser }) {
             <li
               key={user.uid}
               onClick={() => onSelectUser(user)}
-              style={{ cursor: "pointer", marginBottom: "8px" }}
+              style={{
+                cursor: "pointer",
+                marginBottom: "10px",
+                padding: "8px",
+                border: "1px solid #ccc",
+                borderRadius: "5px",
+                backgroundColor: unread > 0 ? "#fff7f7" : "#f9f9f9",
+              }}
             >
-              {user.username} - {isOnline ? "🟢 Online" : "⚪ Offline"}
+              <strong>{user.username}</strong> -{" "}
+              <span style={{ color: isOnline ? "green" : "gray" }}>
+                {isOnline ? "🟢 Online" : "⚪ Offline"}
+              </span>
+              <p>Total messages from this user: {totalCounts[user.uid] || 0}</p>
               {unread > 0 && (
-                <span style={{ color: "red", marginLeft: "8px" }}>
-                  ({unread} unread)
+                <span
+                  style={{
+                    color: "white",
+                    backgroundColor: "red",
+                    borderRadius: "50%",
+                    padding: "3px 7px",
+                    marginLeft: "10px",
+                    fontSize: "0.8em",
+                  }}
+                >
+                  {unread}
                 </span>
               )}
             </li>

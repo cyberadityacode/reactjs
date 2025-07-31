@@ -10,18 +10,18 @@ export function setUserOnlineStatus(user) {
     return;
   }
   const userStatusRef = ref(rtdb, `status/${user.uid}`);
-
+  const username = user.displayName || user.email || "Anonymous";
   // What to do when user disconnects
   onDisconnect(userStatusRef).set({
     state: "offline",
-    username: user.username,
+    username,
     lastChanged: serverTimestamp(),
   });
 
   // Set user as online now
   set(userStatusRef, {
     state: "online",
-    username: user.username,
+    username,
     lastChanged: serverTimestamp(),
   });
 }
