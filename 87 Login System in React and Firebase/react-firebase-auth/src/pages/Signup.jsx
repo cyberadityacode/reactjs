@@ -9,7 +9,7 @@ export default function Signup() {
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
-
+  /* 
   const handleSignup = async (e) => {
     e.preventDefault();
     setError("");
@@ -43,6 +43,52 @@ export default function Signup() {
       });
 
       setSuccess("Signup Successfull!");
+    } catch (err) {
+      console.error(err);
+      setError(err.message);
+    }
+  };
+ */
+
+  const handleSignup = async (e) => {
+    e.preventDefault();
+    setError("");
+    setSuccess("");
+
+    try {
+      // 1. Check if username is already taken
+      const userRef = doc(collection(db, "usernames"), username);
+      const userSnap = await getDoc(userRef);
+
+      if (userSnap.exists()) {
+        setError("Username Already Taken");
+        return;
+      }
+
+      // 2. Create user in Firebase Auth
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      const user = userCredential.user;
+      const uid = user.uid;
+
+      // 3. Save username mapping
+      await setDoc(userRef, {
+        uid,
+        email,
+      });
+
+      // 4. Save user profile in "users" collection
+      await setDoc(doc(db, "users", uid), {
+        uid,
+        username,
+        email,
+        createdAt: new Date(),
+      });
+
+      setSuccess("Signup Successful!");
     } catch (err) {
       console.error(err);
       setError(err.message);

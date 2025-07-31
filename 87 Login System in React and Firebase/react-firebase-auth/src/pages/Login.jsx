@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth, db } from "../firebase";
 import { doc, getDoc } from "firebase/firestore";
+import { setUserOnlineStatus } from "../utils/setUserOnlineStatus";
 
 export default function Login({ onLoginSuccess }) {
   const [username, setUsername] = useState("");
@@ -13,7 +14,7 @@ export default function Login({ onLoginSuccess }) {
     setError("");
 
     try {
-      // ✅ Use the correct collection: "usernames"
+      //  collection: "usernames"
       const userRef = doc(db, "usernames", username);
       const userSnap = await getDoc(userRef);
 
@@ -33,7 +34,8 @@ export default function Login({ onLoginSuccess }) {
       );
       const user = userCredential.user;
 
-      onLoginSuccess({ uid: user.uid, username });
+      onLoginSuccess({ uid: user.uid, username,email });
+      setUserOnlineStatus({ uid: user.uid, username });
     } catch (err) {
       console.error(err);
       if (err.code === "auth/wrong-password") {
