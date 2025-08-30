@@ -52,10 +52,10 @@ const ChatRoom = ({ chatId, currentUserId }) => {
   }, [chatId]);
 
   // useEffect for Last Seen
-  // ✅ Track target user online status (RTDB)
+  // Track target user online status (RTDB)
  
 
-  // ✅ Get target user's lastSeen (Firestore)
+  //  Get target user's lastSeen (Firestore)
   useEffect(() => {
     const targetDocRef = doc(db, "users", targetUserId);
     const unsubscribe = onSnapshot(targetDocRef, (docSnap) => {

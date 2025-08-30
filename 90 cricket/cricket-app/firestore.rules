@@ -1,0 +1,59 @@
+// Firestore Security Rules for Cricket App
+// Copy this to Firebase Console → Firestore Database → Rules
+
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Users collection - users can read/write their own document, read others
+    match /users/{userId} {
+      // Users can manage their own document
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+      // Users can read other users' documents (needed for admin panel)
+      allow read: if request.auth != null;
+    }
+    
+    // Matches collection - everyone can read, authenticated users can write
+    match /matches/{matchId} {
+      allow read: if request.auth != null;
+      allow write: if request.auth != null && (
+        // Allow if user is the assigned umpire for this match
+        resource.data.umpireId == request.auth.uid ||
+        // Allow if user is creating a new match (admin functionality)
+        !exists(/databases/$(database)/documents/matches/$(matchId)) ||
+        // Allow admins to create matches (you may want to add admin role check here)
+        request.auth != null
+      );
+    }
+    
+    // Score updates collection - audit trail for match updates
+    match /score_updates/{updateId} {
+      allow read: if request.auth != null;
+      allow create: if request.auth != null;
+    }
+    
+    // User activities collection - for user activity tracking
+    match /user_activities/{activityId} {
+      allow read, write: if request.auth != null && (
+        // Users can manage their own activities
+        resource.data.userId == request.auth.uid ||
+        // Allow creation of new activities
+        !exists(/databases/$(database)/documents/user_activities/$(activityId))
+      );
+      allow create: if request.auth != null;
+    }
+  }
+}
+
+/* 
+INSTRUCTIONS TO APPLY THESE RULES:
+
+1. Go to Firebase Console: https://console.firebase.google.com/
+2. Select your project: vedicview-1077
+3. Navigate to: Firestore Database → Rules
+4. Replace the current rules with the code above
+5. Click "Publish" to apply the rules
+6. Test the admin setup in your app
+
+Note: These rules are designed for development. For production, 
+consider adding more specific role-based access controls.
+*/
