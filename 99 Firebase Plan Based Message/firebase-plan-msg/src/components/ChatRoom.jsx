@@ -1,4 +1,4 @@
-// ChatRoom.js
+// ChatRoom.jsx
 import { useEffect, useState, useRef } from "react";
 import { db, auth } from "../firebase";
 import {
@@ -9,7 +9,6 @@ import {
   serverTimestamp,
   runTransaction,
   doc,
-  setDoc,
   getDoc
 } from "firebase/firestore";
 
@@ -17,30 +16,60 @@ export default function ChatRoom({ chatId }) {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
   const [plan, setPlan] = useState("free");
+  const [errorMsg, setErrorMsg] = useState("");
   const scrollRef = useRef();
 
   const uid = auth.currentUser.uid;
   const usageRef = doc(db, "usage", uid);
 
-  // Listen messages
+  const [id1, id2] = chatId.split("_");
+  const otherUser = id1 === uid ? id2 : id1;
+
+  // Listen to messages with error handling
   useEffect(() => {
     const q = query(collection(db, "chats", chatId, "messages"), orderBy("createdAt"));
-    const unsub = onSnapshot(q, async snapshot => {
-      const msgs = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-      setMessages(msgs);
+    const unsub = onSnapshot(
+      q,
+      async snapshot => {
+        const msgs = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        setMessages(msgs);
 
-      // Increment readCount for each snapshot update
-      await runTransaction(db, async (t) => {
-        const snap = await t.get(usageRef);
-        const readCount = snap.exists() ? snap.data().readCount || 0 : 0;
-        t.set(usageRef, { readCount: readCount + 1, writeCount: snap.data()?.writeCount || 0, plan: snap.data()?.plan || "free" });
-      });
-    });
+        // Try to increment read count
+        try {
+          await runTransaction(db, async (t) => {
+            const snap = await t.get(usageRef);
+            if (!snap.exists()) return;
+            const readCount = snap.data().readCount || 0;
+            const writeCount = snap.data().writeCount || 0;
+            const currentPlan = snap.data().plan || "free";
+
+            t.set(usageRef, {
+              readCount: readCount + 1,
+              writeCount,
+              plan: currentPlan
+            }, { merge: true });
+          });
+        } catch (err) {
+          if (err.code === "permission-denied") {
+            setErrorMsg("Daily read limit reached.");
+          } else {
+            console.error("Read transaction error:", err);
+          }
+        }
+      },
+      err => {
+        if (err.code === "permission-denied") {
+          setErrorMsg("You do not have permission to read more messages (limit reached).");
+        } else {
+          setErrorMsg("Error loading messages: " + err.message);
+        }
+      }
+    );
 
     return () => unsub();
   }, [chatId]);
 
-  // Fetch user plan
+  // Fetch plan once
   useEffect(() => {
     const fetchPlan = async () => {
       const snap = await getDoc(usageRef);
@@ -57,24 +86,37 @@ export default function ChatRoom({ chatId }) {
     try {
       await runTransaction(db, async (t) => {
         const usageSnap = await t.get(usageRef);
-        const writeCount = usageSnap.exists() ? usageSnap.data().writeCount : 0;
-        const currentPlan = usageSnap.exists() ? usageSnap.data().plan : "free";
+        if (!usageSnap.exists()) throw new Error("Usage doc not found");
+
+        const writeCount = usageSnap.data().writeCount || 0;
+        const currentPlan = usageSnap.data().plan || "free";
         const limit = currentPlan === "pro" ? 20 : 5;
 
         if (writeCount >= limit) throw new Error(`Daily message limit reached (${limit})`);
 
-        // Add message
         const msgRef = doc(messagesRef);
-        t.set(msgRef, { text: input, from: uid, to: chatId.replace(uid + "_", ""), createdAt: serverTimestamp() });
+        t.set(msgRef, {
+          text: input,
+          from: uid,
+          to: otherUser,
+          createdAt: serverTimestamp()
+        });
 
-        // Update writeCount
-        t.set(usageRef, { writeCount: writeCount + 1, readCount: usageSnap.data()?.readCount || 0, plan: currentPlan });
+        t.set(usageRef, {
+          writeCount: writeCount + 1,
+          readCount: usageSnap.data().readCount || 0,
+          plan: currentPlan
+        }, { merge: true });
       });
 
       setInput("");
       scrollRef.current?.scrollIntoView({ behavior: "smooth" });
     } catch (err) {
-      alert(err.message);
+      if (err.code === "permission-denied") {
+        setErrorMsg("Daily write limit reached.");
+      } else {
+        setErrorMsg(err.message);
+      }
     }
   };
 
@@ -86,6 +128,8 @@ export default function ChatRoom({ chatId }) {
         ))}
         <div ref={scrollRef}></div>
       </div>
+
+      {errorMsg && <p style={{ color: "red" }}>{errorMsg}</p>}
 
       <input value={input} onChange={e => setInput(e.target.value)} placeholder="Type message..." />
       <button onClick={sendMessage}>Send</button>

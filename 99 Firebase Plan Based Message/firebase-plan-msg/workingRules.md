@@ -10,15 +10,20 @@ service cloud.firestore {
     // Chat messages
     match /chats/{chatId}/messages/{messageId} {
 
-      // Helper functions
       function canRead(uid) {
         let usage = get(/databases/$(database)/documents/usage/$(uid));
-        return !usage.exists() || usage.data.readCount < (usage.exists() && usage.data.plan == "pro" ? 50 : 10);
+        return !usage.exists() ||
+               (usage.data.plan == "pro"
+                  ? usage.data.readCount < 50
+                  : usage.data.readCount < 10);
       }
 
       function canWrite(uid) {
         let usage = get(/databases/$(database)/documents/usage/$(uid));
-        return !usage.exists() || usage.data.writeCount < (usage.exists() && usage.data.plan == "pro" ? 20 : 5);
+        return !usage.exists() ||
+               (usage.data.plan == "pro"
+                  ? usage.data.writeCount < 20
+                  : usage.data.writeCount < 5);
       }
 
       allow read: if request.auth != null && canRead(request.auth.uid);

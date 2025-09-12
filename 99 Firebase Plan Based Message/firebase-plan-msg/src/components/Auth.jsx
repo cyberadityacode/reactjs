@@ -1,4 +1,4 @@
-// Auth.js
+// Auth.jsx
 import { useState } from "react";
 import { auth, db } from "../firebase";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
@@ -15,7 +15,11 @@ export default function Auth({ onAuth }) {
       const uid = userCred.user.uid;
 
       // Initialize usage doc
-      await setDoc(doc(db, "usage", uid), { plan:"free", writeCount: 0, readCount: 0 });
+      await setDoc(doc(db, "usage", uid), {
+        plan,
+        writeCount: 0,
+        readCount: 0,
+      });
 
       onAuth(uid);
     } catch (err) {
@@ -26,7 +30,20 @@ export default function Auth({ onAuth }) {
   const login = async () => {
     try {
       const userCred = await signInWithEmailAndPassword(auth, email, password);
-      onAuth(userCred.user.uid);
+      const uid = userCred.user.uid;
+
+      // Failsafe: ensure usage doc exists
+      const usageRef = doc(db, "usage", uid);
+      const snap = await getDoc(usageRef);
+      if (!snap.exists()) {
+        await setDoc(usageRef, {
+          plan: "free",
+          writeCount: 0,
+          readCount: 0,
+        });
+      }
+
+      onAuth(uid);
     } catch (err) {
       alert(err.message);
     }
