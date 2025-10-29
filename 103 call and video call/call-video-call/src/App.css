@@ -1,0 +1,22 @@
+.video-container {
+  display: flex;
+  gap: 10px;
+}
+.local-video, .remote-video {
+  width: 45%;
+  background: black;
+  border-radius: 8px;
+}
+.call-popup {
+  background: #111;
+  padding: 12px;
+  border-radius: 8px;
+  color: white;
+}
+.end-btn {
+  background: red;
+  color: white;
+  padding: 8px;
+  border-radius: 6px;
+  margin-top: 10px;
+}

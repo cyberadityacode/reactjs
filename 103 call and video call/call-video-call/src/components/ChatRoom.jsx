@@ -1,162 +1,387 @@
-import {
-  addDoc,
-  collection,
-  doc,
-  onSnapshot,
-  orderBy,
-  query,
-  serverTimestamp,
-  updateDoc,
-  where,
-} from "firebase/firestore";
-import { useEffect, useRef, useState } from "react";
+/* // src/components/ChatRoom.jsx
+import React, { useEffect, useState } from "react";
 import { db } from "../firebase";
+import { ref, set, remove, onValue } from "firebase/database";
 import CallUI from "./CallUI";
+import { v4 as uuidv4 } from "uuid";
 
 export default function ChatRoom({ username, setUsername }) {
+  const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
-  const [input, setInput] = useState("");
-  const messageEndRef = useRef(null);
-  const [activeCall, setActiveCall] = useState(null);
+  const [callData, setCallData] = useState(null); // { callId, remoteUser, isCaller }
 
-  const ringtoneRef = useRef(null);
-
-  const roomRef = collection(db, "rooms", "public", "messages");
-  const messageQuery = query(roomRef, orderBy("createdAt"));
-
-  // Load incoming messages
+  // Listen messages
   useEffect(() => {
-    const unsub = onSnapshot(messageQuery, (snap) => {
-      setMessages(snap.docs.map((d) => ({ id: d.id, ...d.data() })));
+    const msgRef = ref(db, "messages/");
+    const unsub = onValue(msgRef, (snap) => {
+      const data = snap.val();
+      setMessages(
+        data ? Object.values(data).sort((a, b) => a.time - b.time) : []
+      );
     });
     return () => unsub();
   }, []);
 
-  // Scroll to bottom on new message
-  useEffect(() => {
-    messageEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
-
-  // Initialize shared ringtone audio
-  useEffect(() => {
-    ringtoneRef.current = new Audio("/ringtone.mp3");
-    ringtoneRef.current.loop = true;
-  }, []);
-
-  const stopRingtone = () => {
-    if (ringtoneRef.current) {
-      ringtoneRef.current.pause();
-      ringtoneRef.current.currentTime = 0;
-    }
-  };
-
-  const sendMessage = async () => {
-    if (!input.trim()) return;
-
-    await addDoc(roomRef, {
-      text: input,
+  const sendMessage = () => {
+    if (!message.trim()) return;
+    const id = uuidv4();
+    set(ref(db, "messages/" + id), {
+      id,
       username,
-      createdAt: serverTimestamp(),
+      text: message,
+      time: Date.now(),
     });
-    setInput("");
+    setMessage("");
   };
 
-  // Initiate call
-  const startCall = async (receiver) => {
-    const callDoc = await addDoc(collection(db, "calls"), {
+  // Create call node and open CallUI as caller
+  const startCall = (remoteUser) => {
+    if (!remoteUser) return alert("Provide remote username");
+    const callId = uuidv4();
+    set(ref(db, `calls/${callId}`), {
       caller: username,
-      receiver,
-      status: "ringing",
-      createdAt: serverTimestamp(),
+      receiver: remoteUser,
+      status: "calling",
+      createdAt: Date.now(),
     });
-    setActiveCall(callDoc.id);
+    setCallData({ callId, remoteUser, isCaller: true });
   };
 
-  // Listen for incoming calls
+  // Listen for incoming calls for this user
   useEffect(() => {
-    const q = query(
-      collection(db, "calls"),
-      where("receiver", "==", username),
-      where("status", "==", "ringing")
-    );
+    const callsRef = ref(db, "calls/");
+    const unsub = onValue(callsRef, (snap) => {
+      const data = snap.val();
+      if (!data) return;
 
-    const unsub = onSnapshot(q, (snap) => {
-      snap.docChanges().forEach(async (change) => {
-        if (change.type === "added") {
-          const call = { id: change.doc.id, ...change.doc.data() };
-
-          ringtoneRef.current.play().catch(() => {});
-
-          const accept = window.confirm(`${call.caller} is calling you!`);
-          if (accept) {
-            stopRingtone();
-            await updateDoc(doc(db, "calls", call.id), {
-              status: "accepted",
-            });
-            setActiveCall(call.id);
-          } else {
-            stopRingtone();
-            await updateDoc(doc(db, "calls", call.id), {
-              status: "rejected",
-            });
-          }
+      // look for any call where receiver === username and status === 'calling'
+      for (const [id, call] of Object.entries(data)) {
+        if (call.receiver === username && call.status === "calling") {
+          // show incoming UI (callee)
+          setCallData({ callId: id, remoteUser: call.caller, isCaller: false });
+          break;
         }
-      });
+      }
     });
-
     return () => unsub();
   }, [username]);
 
-  // Cleanup ringtone on component unmount
+  // Monitor call status changes
   useEffect(() => {
-    return () => stopRingtone();
-  }, []);
+    if (!callData) return;
+    const callRef = ref(db, `calls/${callData.callId}`);
+    const unsub = onValue(callRef, (snap) => {
+      const val = snap.val();
+      if (!val || val.status === "ended" || val.status === "rejected") {
+        // Call ended or rejected - close UI
+        setCallData(null);
+      }
+    });
+    return () => unsub();
+  }, [callData]);
 
-  const handleEndCall = () => {
-    stopRingtone();
-    setActiveCall(null);
-  };
-
-  const handleLogout = () => {
-    localStorage.setItem("username", "");
-    setUsername("");
-  };
   return (
-    <div style={{ maxWidth: 600, margin: "auto", padding: 20 }}>
-      <h3>Public Chat Room</h3>
+    <div style={{ padding: 12, fontFamily: "sans-serif" }}>
+      <h2>Welcome, {username}</h2>
 
-      <div style={{ height: 400, overflowY: "auto" }}>
+      <div
+        style={{
+          maxHeight: 300,
+          overflow: "auto",
+          marginBottom: 10,
+          border: "1px solid #ddd",
+          padding: 8,
+        }}
+      >
         {messages.map((m) => (
-          <div key={m.id}>
-            <strong>{m.username}: </strong> {m.text}
+          <div key={m.id} style={{ marginBottom: 6 }}>
+            <strong>{m.username}:</strong> {m.text}
             {m.username !== username && (
               <button
+                style={{ marginLeft: 8 }}
                 onClick={() => startCall(m.username)}
-                style={{ marginLeft: 10 }}
               >
-                📞 Call User
+                📞 Call
               </button>
             )}
           </div>
         ))}
-        <div ref={messageEndRef}></div>
       </div>
 
-      <input
-        placeholder="Type message..."
-        value={input}
-        onChange={(e) => setInput(e.target.value)}
-        onKeyDown={(e) => e.key === "Enter" && sendMessage()}
-      />
-      <button onClick={sendMessage}>Send</button>
+      <div style={{ display: "flex", gap: 8, marginBottom: 12 }}>
+        <input
+          placeholder="Message… or enter recipient username then press Call"
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+          style={{ flex: 1, padding: 8 }}
+        />
+        <button onClick={sendMessage} style={{ padding: "8px 12px" }}>
+          Send
+        </button>
+      </div>
 
-      {activeCall && (
-        <CallUI callId={activeCall} username={username} onEnd={handleEndCall} />
+      <div style={{ marginBottom: 12 }}>
+        <input
+          placeholder="Or type username to call directly"
+          onKeyDown={(e) => {
+            if (e.key === "Enter" && e.target.value.trim()) {
+              startCall(e.target.value.trim());
+              e.target.value = "";
+            }
+          }}
+          style={{ padding: 8, width: 260, marginRight: 8 }}
+        />
+        <button
+          onClick={() => {
+            setUsername("");
+            localStorage.removeItem("username");
+          }}
+        >
+          Logout
+        </button>
+      </div>
+
+      {callData && (
+        <CallUI
+          callId={callData.callId}
+          username={username}
+          remoteUser={callData.remoteUser}
+          isCaller={callData.isCaller}
+          onCallEnd={() => setCallData(null)}
+        />
       )}
+    </div>
+  );
+}
+ */
 
-      <div>
-        <button onClick={handleLogout}>Logout</button>
+// src/components/ChatRoom.jsx
+import React, { useEffect, useState } from "react";
+import { db } from "../firebase";
+import { ref, set, remove, onValue } from "firebase/database";
+import CallUI from "./CallUI";
+import { v4 as uuidv4 } from "uuid";
+
+export default function ChatRoom({ username, setUsername }) {
+  const [message, setMessage] = useState("");
+  const [messages, setMessages] = useState([]);
+  const [callData, setCallData] = useState(null); // { callId, remoteUser, isCaller }
+  const [incomingCallsMap, setIncomingCallsMap] = useState({}); // Track incoming calls
+
+  // Listen to messages
+  useEffect(() => {
+    const msgRef = ref(db, "messages/");
+    const unsub = onValue(msgRef, (snap) => {
+      try {
+        const data = snap.val();
+        setMessages(
+          data ? Object.values(data).sort((a, b) => a.time - b.time) : []
+        );
+      } catch (err) {
+        console.error("Error loading messages:", err);
+      }
+    });
+    return () => unsub();
+  }, []);
+
+  // Listen for incoming calls for this user (optimized query)
+  useEffect(() => {
+    const callsRef = ref(db, "calls/");
+    const unsub = onValue(callsRef, (snap) => {
+      try {
+        const data = snap.val();
+        if (!data) return;
+
+        const incomingCalls = {};
+        for (const [id, call] of Object.entries(data)) {
+          if (call.receiver === username && call.status === "calling") {
+            incomingCalls[id] = {
+              callId: id,
+              remoteUser: call.caller,
+              isCaller: false,
+            };
+          }
+        }
+
+        // If there are incoming calls and we don't have an active call, set the first one
+        if (Object.keys(incomingCalls).length > 0 && !callData) {
+          const firstCallId = Object.keys(incomingCalls)[0];
+          setCallData(incomingCalls[firstCallId]);
+        }
+
+        setIncomingCallsMap(incomingCalls);
+      } catch (err) {
+        console.error("Error processing incoming calls:", err);
+      }
+    });
+    return () => unsub();
+  }, [username, callData]);
+
+  const sendMessage = () => {
+    if (!message.trim()) return;
+    try {
+      const id = uuidv4();
+      set(ref(db, "messages/" + id), {
+        id,
+        username,
+        text: message,
+        time: Date.now(),
+      });
+      setMessage("");
+    } catch (err) {
+      console.error("Error sending message:", err);
+      alert("Failed to send message");
+    }
+  };
+
+  // Create call node and open CallUI as caller
+  const startCall = (remoteUser) => {
+    if (!remoteUser || !remoteUser.trim()) {
+      alert("Please provide a valid username");
+      return;
+    }
+
+    if (remoteUser === username) {
+      alert("Cannot call yourself");
+      return;
+    }
+
+    try {
+      const callId = uuidv4();
+      set(ref(db, `calls/${callId}`), {
+        caller: username,
+        receiver: remoteUser,
+        status: "calling",
+        createdAt: Date.now(),
+      });
+      setCallData({ callId, remoteUser, isCaller: true });
+    } catch (err) {
+      console.error("Error starting call:", err);
+      alert("Failed to start call");
+    }
+  };
+
+  const handleDirectCall = (e) => {
+    if (e.key === "Enter" && e.target.value.trim()) {
+      startCall(e.target.value.trim());
+      e.target.value = "";
+    }
+  };
+
+  const handleLogout = () => {
+    setUsername("");
+    try {
+      localStorage.removeItem("username");
+    } catch (err) {
+      console.error("Error clearing localStorage:", err);
+    }
+  };
+
+  return (
+    <div style={{ padding: 12, fontFamily: "sans-serif" }}>
+      <h2>Welcome, {username}</h2>
+
+      <div
+        style={{
+          maxHeight: 300,
+          overflow: "auto",
+          marginBottom: 10,
+          border: "1px solid #ddd",
+          padding: 8,
+          backgroundColor: "#f9f9f9",
+        }}
+      >
+        {messages.length === 0 ? (
+          <p style={{ color: "#999", textAlign: "center" }}>No messages yet</p>
+        ) : (
+          messages.map((m) => (
+            <div
+              key={m.id}
+              style={{
+                marginBottom: 6,
+                padding: 6,
+                backgroundColor: "#fff",
+                borderRadius: 4,
+              }}
+            >
+              <strong>{m.username}:</strong> {m.text}
+              {m.username !== username && (
+                <button
+                  style={{ marginLeft: 8, padding: "4px 8px", fontSize: 12 }}
+                  onClick={() => startCall(m.username)}
+                  title={`Call ${m.username}`}
+                >
+                  📞 Call
+                </button>
+              )}
+            </div>
+          ))
+        )}
       </div>
+
+      <div style={{ display: "flex", gap: 8, marginBottom: 12 }}>
+        <input
+          placeholder="Enter message..."
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+          onKeyDown={(e) => e.key === "Enter" && sendMessage()}
+          style={{
+            flex: 1,
+            padding: 8,
+            borderRadius: 4,
+            border: "1px solid #ddd",
+          }}
+        />
+        <button
+          onClick={sendMessage}
+          style={{
+            padding: "8px 16px",
+            backgroundColor: "#007bff",
+            color: "white",
+            border: "none",
+            borderRadius: 4,
+            cursor: "pointer",
+          }}
+        >
+          Send
+        </button>
+      </div>
+
+      <div style={{ display: "flex", gap: 8, marginBottom: 12 }}>
+        <input
+          placeholder="Enter username to call directly"
+          onKeyDown={handleDirectCall}
+          style={{
+            padding: 8,
+            flex: 1,
+            borderRadius: 4,
+            border: "1px solid #ddd",
+          }}
+        />
+        <button
+          onClick={handleLogout}
+          style={{
+            padding: "8px 16px",
+            backgroundColor: "#dc3545",
+            color: "white",
+            border: "none",
+            borderRadius: 4,
+            cursor: "pointer",
+          }}
+        >
+          Logout
+        </button>
+      </div>
+
+      {callData && (
+        <CallUI
+          callId={callData.callId}
+          username={username}
+          remoteUser={callData.remoteUser}
+          isCaller={callData.isCaller}
+          onCallEnd={() => setCallData(null)}
+        />
+      )}
     </div>
   );
 }
